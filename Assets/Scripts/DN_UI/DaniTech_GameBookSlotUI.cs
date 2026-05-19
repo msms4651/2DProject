@@ -9,14 +9,17 @@ public class DaniTech_GameBookSlotUI : MonoBehaviour
     [Header("슬롯 기본 정보")]
     [SerializeField] private Image Image_MainIcon;
     [SerializeField] private Text Text_MainName;
-    [SerializeField] private GameObject GObj_Selected;//왜 이미지가 아니라 GameObject - > 활성 /비활성화
+    [SerializeField] private GameObject GObj_Selected;//왜 이미지가 아니라 GameObject - > 활성 /비활성화 기능으로만 사용할거 라서
     [SerializeField] private DaniTechUIButton Button_SlotClick;
 
 
     private event Action<string> _onClickSlot;
+    //private DNItemData _data; // 아이템 뿐만 아니라 다양한 데이터들을 도감에서 보여줄섯이므로
 
 
     private string _slotDataId; // 슬롯이 자기가 살아있는 동안 어떤 슬롯인지 DataId를 보관
+
+    //public string SlotDataId
 
     private void OnEnable()
     {
@@ -58,6 +61,11 @@ public class DaniTech_GameBookSlotUI : MonoBehaviour
         // TODO 슬롯 로드가 들어갈 예정
         // Image_MainIcon.sprite = 
 
+
+    }
+
+    public void SetselectedUI(bool isSelect)
+    {
 
     }
 
