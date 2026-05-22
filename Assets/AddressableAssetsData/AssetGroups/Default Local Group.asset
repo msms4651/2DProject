@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ea37e1e0a26d544d9ed252eca81f0de
+    m_Address: 2DObject/Monster_Slime
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 43237ee419ec47b49a6349f963676aa1
     m_Address: 2DPrefab/Harvest_Potato
     m_ReadOnly: 0
@@ -60,6 +65,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a00b10d65a73f4b43a6039bcf6f0ff38
+    m_Address: Icon/Icon_Slime
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b274098d752569847aeb279b1fd69bbf
+    m_Address: Assets/Resources_moved/Prefab2DObject/Harvest_Carrot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bab0dab329b3a2e45bff7ba9f9c889b4
     m_Address: Sound/Pugmia_Bgm_2
     m_ReadOnly: 0
@@ -75,8 +90,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e95e5277f222fae4087d578c283a3251
+    m_Address: 2DObject/Monster_Bear
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6c00c3a8cf47444f99515def7dfc617
+    m_Address: Icon/Icon_Bear
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa10f0e6a7fa0194585cc5d634b0a558
-    m_Address: 2DPrefab/DropItem_Gold
+    m_Address: 2DPrefab/Harvest_Carrot
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

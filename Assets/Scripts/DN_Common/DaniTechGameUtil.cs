@@ -129,4 +129,6 @@ public static class DaniTechGameUtil
             // 그 사이 다른 스레드가 값을 바꿨다면 다시 시도
         }
     }
+
+    
 }

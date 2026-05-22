@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
-using Image = UnityEngine.UI.Image;
-using System;
+using Cysharp.Threading.Tasks;
+
+
 
 
 public class DaniTech_GameBookUI : DaniTechUIBase
@@ -13,7 +13,7 @@ public class DaniTech_GameBookUI : DaniTechUIBase
     [SerializeField] private GameObject prefab_Slot; //게임 오브젝트이지만, 프리팹이라는 단어를 명시
 
     [Header("디테일 정보 영역")]
-    [SerializeField] private RawImage Image_MainIcon;
+    [SerializeField] private RawImage RawImage_MainIcon;
     [SerializeField] private Text Text_MainName;
     [SerializeField] private Text Text_Description;
     [SerializeField] private DaniTechUIButton Button_CloseUI;
@@ -32,11 +32,21 @@ public class DaniTech_GameBookUI : DaniTechUIBase
         // 이 UI가 열릴때 스스로, 기본적으로 아이템 도감 안에 있는 모든~~ 데이터를 불러온다
         ReadItemListAndCreateSlot();
 
+
+        Button_CloseUI.BindOnClickButtonEvent(OnClick_CloseGameBookUI);
+
         //Button_CloseUI.
 
     }
 
-    //public void OnClick_CloseGame
+    public void OnClick_CloseGameBookUI()
+    {
+        Debug.Log("도감에 닫기 버튼이 눌렸습니다!");
+
+        DaniTechUIManager.Instance.CloseContentUI(DaniTechUIType.DNGameBookUI);
+
+    }
+
 
     private void OnDisable()
     {
@@ -77,7 +87,7 @@ public class DaniTech_GameBookUI : DaniTechUIBase
             foreach (var slotKv in _slotList)
             {
                 var slot = slotKv.Value;
-                //slot.OnClick_GameBookSlot();
+                slot.OnClick_GameBookSlot();
             }
         }
         
@@ -94,10 +104,11 @@ public class DaniTech_GameBookUI : DaniTechUIBase
 
 
     // 슬롯 1개만 제대로 생성해주는 로직 역할 메서드
-    private void CreateGameBookSlot(string dadaId)
+    private void CreateGameBookSlot(string dadaId)  // 도감이 중복된다면 instanceId를 사용하는게 낫고 
+                                                    // 중복되지 않는다면 dadaId가 낫다
     {
         var gObj = Instantiate(prefab_Slot, Transform_SlotRoot);
-        if (gObj = null) return;
+        if (gObj == null) return;
 
         // 게임 오브젝트는 동적생성이 됐다
 
@@ -113,23 +124,25 @@ public class DaniTech_GameBookUI : DaniTechUIBase
     }
 
 
-    private void OnclickChildSlotSelected(string slotDataId)
+    public void OnclickChildSlotSelected(string slotDataId)
     {
         var currentSelectedData = DaniTechGameDataManager.Instance.GetDNItemData(slotDataId);
         if(currentSelectedData == null) return;
 
-        //Image_MainIcon;
         Text_MainName.text = currentSelectedData.Name;
-        //Text_Description = currentSelectedData.Description;
+        Text_Description.text = currentSelectedData.Description;
         //text_SellingPrice.text = currentSelectedData.SellingPrice;
-        //DaniTechGameUtil.LoadAndSetSpriteImage(Image_MainIcon, currentSelectedData. iconPath).Forget();
+
+
+        DaniTechGameUtil.LoadAndSetTexture(RawImage_MainIcon, currentSelectedData.IconPath).Forget();
+
 
         foreach (var slotKv in _slotList)
         {
-            var slot = slotKv.Key;
-            //var dataId = slot.GetSlotDataId();
-            //slot.SetSelectedUI(slotDataId == dataId);
-           
+            var slot = slotKv.Value;
+            var dataId = slot.GetSlotDataId();
+            slot.SetSelectedUI(slotDataId == dataId);
+
         }
 
     }

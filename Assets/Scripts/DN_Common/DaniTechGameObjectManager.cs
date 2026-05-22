@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DaniTechGameObjectManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class DaniTechGameObjectManager : MonoBehaviour
     // 생성된 오브젝트의 생명을 보관
     private Dictionary<int, GameObject> _createdGameObjectContainer = new Dictionary<int, GameObject>();
     private Dictionary<int, DaniTech_2DFieldObject> _fieldObjectContainer = new Dictionary<int, DaniTech_2DFieldObject>();
+    private Dictionary<int, DaniTech_GameMoster> _monsterObjectContainer = new Dictionary<int, DaniTech_GameMoster>();
+
 
     private void Awake()
     {
@@ -93,6 +96,44 @@ public class DaniTechGameObjectManager : MonoBehaviour
         _createdGameObjectContainer.Remove(instanceId);
         Destroy(gObj);
     }
+    //[몬스터] ===============================
+    public async UniTaskVoid CreateMonsterObject(string monsterDataId, Transform spawnSpot)
+    {
+        // 만드려는 몬스터의 정보를 받아 옵시다
+        var monsterData = DaniTechGameDataManager.Instance.GetDNMonsterData(monsterDataId);
+        if (monsterData == null) return;
+
+        var createdObj = await DaniTechResourceManager.Inst.InstantiateAsync(monsterData.PrefabPath, Root_Enemy, true);
+        createdObj.transform.position = spawnSpot.position;
+
+        AddMonsterObjectOnCreate(createdObj, monsterDataId);
+
+
+    }
+
+    private void AddMonsterObjectOnCreate(GameObject createdObject,string monsterDataId)
+    {
+        _objectInstanceKeyGenerator++;  // 게임
+        int generatedInstanceId = _objectInstanceKeyGenerator;
+
+        //생성된 애는 게임 오브젝트이기 떄문에, monsterBase <- GameMonster로 상속구조 되어있음
+
+        var monsterComponent = createdObject.GetComponent<DaniTech_GameMoster>();
+        if (monsterComponent == null) return;
+
+        // 생성이 되었고, 컴포넌트도 잘 가져왔다면 이제 뭘해야 하나 -> 보관 -> 자료구조
+        // List,  Dictionary 위주로 사용중
+
+        _monsterObjectContainer.Add(generatedInstanceId, monsterComponent);
+
+        // UI든 필드 오브젝트든,  몬스터든 만들어지는 시점에서 INit(생성자처럼 정보를 세팅해주는 함수는 거의 자주 보게 된다)
+        monsterComponent.InitMonster(generatedInstanceId, monsterDataId);
+
+
+
+    }
+
+
 
 
 

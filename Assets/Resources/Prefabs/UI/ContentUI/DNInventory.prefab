@@ -1365,6 +1365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SampleUI_ItemSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 3347826845903962747, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

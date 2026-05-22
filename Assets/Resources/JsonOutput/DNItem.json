@@ -48,25 +48,5 @@
     "MaxStackCount": 20,
     "SellingPrice": 100,
     "IconPath": "Icon/Icon_Item_Box_1"
-  },
-  {
-    "Id": "Item_BigPotato",
-    "Name": "큰감자",
-    "Description": "큰 감자다.ᄄᆞᆨ히 의미가 있진 않다",
-    "ItemType": "Normal",
-    "Grade": "Normal",
-    "MaxStackCount": 20,
-    "SellingPrice": 100,
-    "IconPath": "Icon/Icon_Item_Box_1"
-  },
-  {
-    "Id": "harv_bigCarrot",
-    "Name": "큰당근",
-    "Description": "큰 당근이다.ᄄᆞᆨ히 의미가 있진 않다",
-    "ItemType": "Normal",
-    "Grade": "Normal",
-    "MaxStackCount": 20,
-    "SellingPrice": 100,
-    "IconPath": "Icon/Icon_Item_Equip_Hat_1"
   }
 ]

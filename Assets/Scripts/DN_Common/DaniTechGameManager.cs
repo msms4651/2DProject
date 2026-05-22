@@ -5,6 +5,13 @@ public class DaniTechGameManager : MonoBehaviour
 {
     public static DaniTechGameManager Inst { get; set; }
 
+
+    // 플레이어를 캐싱 -> 게임을 할때 1개라서
+    // LocalPlayer(나) / RemotePlayer(너) / AuthPlayer
+    public DaniTech_2DPlayer LocalPlayer;
+
+
+
     // 플레이 중에 저장되어야 하는 정보들이 있는 위치
     private DaniTechPlayerModel _playerModel = new DaniTechPlayerModel();
 
