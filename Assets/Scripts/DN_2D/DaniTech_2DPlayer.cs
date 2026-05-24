@@ -23,10 +23,15 @@ public class DaniTech_2DPlayer : MonoBehaviour
     [SerializeField] private GameObject Prefab_SkillProjectile;
     [SerializeField] private Transform Transform_SkillProjectileRoot;
 
-
-
     // 우선 직접 들고 있다가 추후에 UI매니저한테 요청하도록 개선해볼 것
     [SerializeField] private DaniTech_ScoreUI _scoreUI;
+
+    [Header("전투 관련 정보")]
+    [SerializeField] private int _playerHp = 1000;
+    [SerializeField] private int _playerBaseAtk = 100;
+
+
+    
 
     private Rigidbody2D _rigidBody;
     private bool _isGrounded;
@@ -64,6 +69,16 @@ public class DaniTech_2DPlayer : MonoBehaviour
 
 
     }
+
+    private void Start()
+    { 
+        // 나 스스로를 등록한다 -> 씬에있는 그 2D플레이어가 등록됨
+        //DaniTechGameObjectManager.Inst.RegisterLocalPlayer(this);
+    }
+
+
+
+
 
     void Update()
     {
@@ -256,7 +271,15 @@ public class DaniTech_2DPlayer : MonoBehaviour
 
     private void CreateProjectileSkillObject()
     {
-        var gObj = Instantiate(Prefab_SkillProjectile);
+        // UI에서도 동적생성 했듯, 지금 스킬 투사체 오브젝트도 소환(실체화 - 동적생성)
+        var gObj = Instantiate(Prefab_SkillProjectile, Transform_SkillProjectileRoot);
+        if (gObj != null) return;
+
+        var skillProjecttileComponent = gObj.GetComponent<DaniTech_SkillProjectile>();
+        if (skillProjecttileComponent != null) return;
+
+        skillProjecttileComponent.InitSkillObject(_lookRight);
+
     }
 
     // 시간제어가 필요하므로 코루틴, 유니테스크를 사용해야한다
@@ -313,6 +336,32 @@ public class DaniTech_2DPlayer : MonoBehaviour
             }
         }
     }
+
+    // 플레이어와의 전투와 관련된 부분은 사실 나중에 다른곳으로 빠질수 있기 때문에
+    // 데이터의 와리가리 하는 부분은 -> rpg 재접면 풀피 - > 세이브 -> gameManager
+    // 결국 인스턴스 데이터가 이 플레이어 코드안에 있는게 아니라 -> 저장이 가능하도록 GameManager에 플레이어 
+    // playerModel
+    public void TakeDamage(int damage)
+    {
+        _playerHp -= damage;
+        Debug.Log(_playerHp);
+
+        if (_playerHp - damage < 0)
+        {
+            // 죽음 처리를 여기서 해두고
+            PlayerDie();
+        }
+
+
+    }
+
+    public void PlayerDie()
+    {
+        // bool _isAlive = false;
+    }
+
+
+
 
 
     private void OnDrawGizmos()

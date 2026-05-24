@@ -107,6 +107,22 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
 
       }
 
+
+    //플레이어가 -> 몬스터한테 데미지를 줄떄 호출하는 함수
+    public void TakeDamage(int playerDamage)
+    {
+        _baseHp -= playerDamage;
+
+        // 피격 이펙트 같은거 활성화
+        //SpriteRenderer_Damage.
+
+        // 몬스터 죽음
+        if(_baseHp < 0)
+        {
+            Destroy(this.gameObject);
+        }
+
+    }
 }
 
 

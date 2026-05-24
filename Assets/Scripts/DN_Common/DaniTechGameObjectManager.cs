@@ -19,11 +19,39 @@ public class DaniTechGameObjectManager : MonoBehaviour
     private Dictionary<int, DaniTech_2DFieldObject> _fieldObjectContainer = new Dictionary<int, DaniTech_2DFieldObject>();
     private Dictionary<int, DaniTech_GameMoster> _monsterObjectContainer = new Dictionary<int, DaniTech_GameMoster>();
 
+    // 게임 오브젝트 매니저가 살아있는 동안 ,이 플레이어를 보관(캐싱) 해둔다
+    private DaniTech_2DPlayer _localPlayer;
+
 
     private void Awake()
     {
         Inst = this;
     }
+
+    //등록과 가져오기
+    public void RegisterLocalPlayer(DaniTech_2DPlayer localPlayer)
+    {
+        _localPlayer = localPlayer;
+    }
+
+
+    //public void RegisterLocalPlayer(DaniTech_2DPlayer localPlayer)
+    //{
+    //    _localPlayer = localPlayer;
+    //}
+    // 프로퍼티 기능이 있긴 하지만.  그래도 그 프로퍼티를 직접 참조한는 것보다는 get함수를 한정적으로 사용
+    public DaniTech_2DPlayer GetLocalPlayer()
+    {
+        if (_localPlayer == null)
+        {
+            Debug.LogError("등록된 플레이어가 없는데 참조하려고 시도중입니다");
+            return null;
+        }
+
+        // 우리가 배웠던 원시적인 get함수 -> dnjstlwjrdlwlaks dbdydgka
+        return _localPlayer;
+    }
+
 
     public void RequestSpawnEnemy()
     {

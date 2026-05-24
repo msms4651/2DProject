@@ -8,6 +8,7 @@ public class DaniTechGameManager : MonoBehaviour
 
     // 플레이어를 캐싱 -> 게임을 할때 1개라서
     // LocalPlayer(나) / RemotePlayer(너) / AuthPlayer
+    // public DaniTech
     public DaniTech_2DPlayer LocalPlayer;
 
 
@@ -66,5 +67,10 @@ public class DaniTechGameManager : MonoBehaviour
     {
         // _playerModel이 Private이므로 외부에서 ItemList를 받아올 수 있게 Get함수를 사용한다
         return _playerModel.ItemList;
+    }
+
+    public DaniTech_2DPlayer GetLocalPlayer()
+    {
+        return DaniTechGameObjectManager.Inst.GetLocalPlayer();
     }
 }
