@@ -34,11 +34,13 @@ public class DaniTechGameObjectManager : MonoBehaviour
         _localPlayer = localPlayer;
     }
 
+  
 
     //public void RegisterLocalPlayer(DaniTech_2DPlayer localPlayer)
     //{
     //    _localPlayer = localPlayer;
     //}
+
     // 프로퍼티 기능이 있긴 하지만.  그래도 그 프로퍼티를 직접 참조한는 것보다는 get함수를 한정적으로 사용
     public DaniTech_2DPlayer GetLocalPlayer()
     {
@@ -48,7 +50,8 @@ public class DaniTechGameObjectManager : MonoBehaviour
             return null;
         }
 
-        // 우리가 배웠던 원시적인 get함수 -> dnjstlwjrdlwlaks dbdydgka
+
+        // 우리가 배웠던 원시적인 get함수 -> 원시적이지만 유용함
         return _localPlayer;
     }
 

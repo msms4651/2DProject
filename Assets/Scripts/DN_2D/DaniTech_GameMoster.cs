@@ -117,7 +117,25 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
         // TODO : 추후 함수로 빠져야함
         float skillMultiple = _thisMonsterData.SkillAtkMultipleList.Count > 0 ? _thisMonsterData.SkillAtkMultipleList[0] : 0;
         int finalSkillDamage = GetFinalSkillDamage(_thisMonsterData.BaseAtk,skillMultiple);
-        skillProjecttileComponent.InitSkillObject(_instanceId, _lookRight, this.transform.position, finalSkillDamage);
+        var tag = this.gameObject.tag;
+        skillProjecttileComponent.InitSkillObject(_instanceId, _lookRight, this.transform.position, finalSkillDamage, tag, OnSkillCollision);
+    }
+
+    // 몬스터가 소환한 투사체의 충돌이 발생 했을 때 응답이 온다
+    private void OnSkillCollision(int colliedObjectInstanceId, int damage)
+    {
+        if (colliedObjectInstanceId == 0) // 0이면 플레이어라는 규칙이 있으므로
+        {
+            var player = DaniTechGameObjectManager.Inst.GetLocalPlayer();
+
+            // 이스킬이 충돌한 시점에서 다시한번 데미지를 계산해도 된다 - 기획적인 요소
+            // float skillMultiple = _thisMonsterData.SkillAtkMultipleList.Count > 0 ? _thisMonsterData.SkillAtkMultipleList[0] : 0;
+            // int finalSkillDamage = GetFinalSkillDamage(_thisMonsterData.BaseAtk, skillMultiple);
+
+
+            player.TakeDamage(damage);
+        }
+
     }
 
 

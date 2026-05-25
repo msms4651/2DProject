@@ -23,15 +23,15 @@ public class DaniTech_2DPlayer : MonoBehaviour
     [SerializeField] private GameObject Prefab_SkillProjectile;
     [SerializeField] private Transform Transform_SkillProjectileRoot;
 
-    // 우선 직접 들고 있다가 추후에 UI매니저한테 요청하도록 개선해볼 것
-    [SerializeField] private DaniTech_ScoreUI _scoreUI;
+   
 
     [Header("전투 관련 정보")]
     [SerializeField] private int _playerHp = 1000;
     [SerializeField] private int _playerBaseAtk = 100;
 
+    // 우선 직접 들고 있다가 추후에 UI매니저한테 요청하도록 개선해볼 것
+    [SerializeField] private DaniTech_ScoreUI _scoreUI;
 
-    
 
     private Rigidbody2D _rigidBody;
     private bool _isGrounded;
@@ -278,7 +278,7 @@ public class DaniTech_2DPlayer : MonoBehaviour
         var skillProjecttileComponent = gObj.GetComponent<DaniTech_SkillProjectile>();
         if (skillProjecttileComponent != null) return;
 
-        skillProjecttileComponent.InitSkillObject(0, _lookRight, this.transform.position, 500);
+        skillProjecttileComponent.InitSkillObject(0, _lookRight, this.transform.position, 500, tag);
 
     }
 
@@ -338,13 +338,14 @@ public class DaniTech_2DPlayer : MonoBehaviour
     }
 
     // 플레이어와의 전투와 관련된 부분은 사실 나중에 다른곳으로 빠질수 있기 때문에
-    // 데이터의 와리가리 하는 부분은 -> rpg 재접면 풀피 - > 세이브 -> gameManager
-    // 결국 인스턴스 데이터가 이 플레이어 코드안에 있는게 아니라 -> 저장이 가능하도록 GameManager에 플레이어 
+    // 데이터의 와리가리 하는 부분은 -> ex) rpg 재접하면 풀피 - > 세이브 -> GameManager
+    // 결국 인스턴스 데이터가 이 플레이어 코드안에 있는게 아니라 -> 저장이 가능하도록 GameManager에 플레이어 인스턴스 데이터로 저장이 되어야함
     // playerModel
+
     public void TakeDamage(int damage)
     {
         _playerHp -= damage;
-        Debug.Log(_playerHp);
+        Debug.Log($"{_playerHp}");
 
         if (_playerHp - damage < 0)
         {
