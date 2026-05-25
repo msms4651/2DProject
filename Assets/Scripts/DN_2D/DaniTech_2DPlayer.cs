@@ -278,8 +278,28 @@ public class DaniTech_2DPlayer : MonoBehaviour
         var skillProjecttileComponent = gObj.GetComponent<DaniTech_SkillProjectile>();
         if (skillProjecttileComponent != null) return;
 
-        skillProjecttileComponent.InitSkillObject(0, _lookRight, this.transform.position, 500, tag);
+        var tag = this.gameObject.tag;
+        skillProjecttileComponent.InitSkillObject(0, _lookRight, this.transform.position, 500, tag, OnMonsterCollied);
 
+    }
+
+    private void OnMonsterCollied(int monsterInstanceId, int skillDamage)
+    {
+
+        // 게임 오브젝트 매니저는 모든 몬스터를 관리한다
+        // 그 자료구조는 Dicrionary로 key - instanceId다
+        // 몬스터를 게임오브젝트 매니저를 통해 받아올 수 있다!
+
+
+        // 몬스터때도 구현했던 2번 방식) 플레이어한테 스킬이 충돌정보를 알려주기만 하고, 
+        // 실제 몬스터와의 상호작용은 플레이어가 주도권을 가지고 한다
+
+        var monsterComponent = DaniTechGameObjectManager.Inst.GetMonsterObjectByInstanceId(monsterInstanceId);
+        if (monsterComponent == null) return;
+
+        Debug.LogWarning($"플레이어가 {monsterInstanceId}에 데미지 {skillDamage}를 입혔다");
+
+        monsterComponent.TakeDamage(skillDamage);
     }
 
     // 시간제어가 필요하므로 코루틴, 유니테스크를 사용해야한다

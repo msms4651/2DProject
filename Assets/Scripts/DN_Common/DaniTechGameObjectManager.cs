@@ -166,6 +166,19 @@ public class DaniTechGameObjectManager : MonoBehaviour
 
     }
 
+    public DaniTech_GameMoster GetMonsterObjectByInstanceId(int monsterInstanceId)
+    {
+        if (_monsterObjectContainer.ContainsKey(monsterInstanceId) == false)
+        {
+            Debug.LogError($"{monsterInstanceId} 찾으려는 몬스터가 유효하지 않습니다");
+            return null;
+        }
+        
+        
+
+        return _monsterObjectContainer[monsterInstanceId];
+    }
+
 
 
 
