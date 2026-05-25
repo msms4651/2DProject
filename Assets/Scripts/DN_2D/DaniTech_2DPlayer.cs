@@ -278,7 +278,7 @@ public class DaniTech_2DPlayer : MonoBehaviour
         var skillProjecttileComponent = gObj.GetComponent<DaniTech_SkillProjectile>();
         if (skillProjecttileComponent != null) return;
 
-        skillProjecttileComponent.InitSkillObject(_lookRight);
+        skillProjecttileComponent.InitSkillObject(0, _lookRight, this.transform.position, 500);
 
     }
 

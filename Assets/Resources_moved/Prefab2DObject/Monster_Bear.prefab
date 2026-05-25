@@ -47,6 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec92318da47a2c4abc8f9dafb7d5a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaniTech_GameMoster
+  SkillCoolTime: 5
+  Prefab_thisMonsterSkillObjet: {fileID: 7158394713744932054, guid: cd4599fd8b9aded4f9b9ed2726a1180a, type: 3}
+  SpriteRenderer_Monster: {fileID: 6627811897836811848}
+  _instanceId: 0
+  _dataId: 
+  _baseHp: 0
+  _baseAtk: 0
+  _isAlive: 1
 --- !u!50 &5336684423402810778
 Rigidbody2D:
   serializedVersion: 5
@@ -59,7 +67,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 5

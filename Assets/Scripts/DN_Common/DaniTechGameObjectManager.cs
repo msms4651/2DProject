@@ -131,8 +131,10 @@ public class DaniTechGameObjectManager : MonoBehaviour
         var monsterData = DaniTechGameDataManager.Instance.GetDNMonsterData(monsterDataId);
         if (monsterData == null) return;
 
+
+        // 비동기라 조금 어려우므로 그냥 따라 치시면 됩니다
         var createdObj = await DaniTechResourceManager.Inst.InstantiateAsync(monsterData.PrefabPath, Root_Enemy, true);
-        createdObj.transform.position = spawnSpot.position;
+        createdObj.transform.position = spawnSpot.position; // 위치를 스폰스팟의 위치로 맞춰준다
 
         AddMonsterObjectOnCreate(createdObj, monsterDataId);
 
@@ -141,10 +143,10 @@ public class DaniTechGameObjectManager : MonoBehaviour
 
     private void AddMonsterObjectOnCreate(GameObject createdObject,string monsterDataId)
     {
-        _objectInstanceKeyGenerator++;  // 게임
+        _objectInstanceKeyGenerator++;  // 게임 시작하고 1~1000개 이상~~ 계속 만들어지는 오브젝트들의 InstanceId가 겹치지 않도록 관리해주려는 목적
         int generatedInstanceId = _objectInstanceKeyGenerator;
 
-        //생성된 애는 게임 오브젝트이기 떄문에, monsterBase <- GameMonster로 상속구조 되어있음
+        //생성된 애는 게임 오브젝트이기 때문에, monsterBase <- GameMonster로 상속구조 되어있음
 
         var monsterComponent = createdObject.GetComponent<DaniTech_GameMoster>();
         if (monsterComponent == null) return;

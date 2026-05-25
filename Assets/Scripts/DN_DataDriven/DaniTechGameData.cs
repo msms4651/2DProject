@@ -90,9 +90,9 @@ public class DNMonsterData : GameDataBase
     public string Name;
     public string Description;
     public int BaseHp;
-    public string NormalAtkMultiple;
     public int BaseAtk;
-    public string SkillAtkMultiple;
+    public float NormalAtkMultiple;
+    public List<float> SkillAtkMultipleList;
 
     public string IconPath;
     public string PrefabPath;

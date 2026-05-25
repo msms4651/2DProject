@@ -21,14 +21,14 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
 
 
 
-
     // DNMonsterData _thisMonsterData;
-    [Header("받아왔는데 전투에서 필요한 데이터")]
+    [Header("전투에서 필요한 데이터")]
     private DNMonsterData _thisMonsterData;
     public int _baseHp;
     public int _baseAtk;
     public bool _isAlive = true;
     private bool _lookRight = true;
+
 
     private Vector3 _moveDirection;
 
@@ -46,9 +46,11 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
         _dataId = dataId;
 
 
+        // 초기화 한 다음에 그 객체가 가지고 있는 데이터를 이렇게 찾아와서 필요한 세팅을 해준다
         var monsterData = DaniTechGameDataManager.Instance.GetDNMonsterData(dataId);
         if (monsterData != null)
         {
+            // 이 몬스터가 생성된 시점에서 자신의 엑셀 -> JSON을 거친 데이터를 캐싱해둔다
             _thisMonsterData = monsterData;
             _baseHp = _thisMonsterData.BaseHp;
             _baseAtk = _thisMonsterData.BaseAtk;
@@ -82,6 +84,7 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
                 break;
             }
 
+            ChangeMonsterDirection();
             UseSkill();
 
         }
@@ -104,8 +107,18 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
 
     private void UseSkill()
       {
+        // UI에서도 동적생성 했듯, 지금 스킬 투사체 오브젝트도 소환(실체화 - 동적생성)
+        var gObj = Instantiate(Prefab_thisMonsterSkillObjet, DaniTechGameObjectManager.Inst.transform);
+        if (gObj != null) return;
 
-      }
+        var skillProjecttileComponent = gObj.GetComponent<DaniTech_SkillProjectile>();
+        if (skillProjecttileComponent != null) return;
+
+        // TODO : 추후 함수로 빠져야함
+        float skillMultiple = _thisMonsterData.SkillAtkMultipleList.Count > 0 ? _thisMonsterData.SkillAtkMultipleList[0] : 0;
+        int finalSkillDamage = GetFinalSkillDamage(_thisMonsterData.BaseAtk,skillMultiple);
+        skillProjecttileComponent.InitSkillObject(_instanceId, _lookRight, this.transform.position, finalSkillDamage);
+    }
 
 
     //플레이어가 -> 몬스터한테 데미지를 줄떄 호출하는 함수

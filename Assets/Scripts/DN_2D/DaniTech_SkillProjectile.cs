@@ -24,7 +24,8 @@ public class DaniTech_SkillProjectile : DaniTech_SkillBase
     {
         
     }
-    public void InitSkillObject(int ownerInstancedId , bool isDirRight, Vector3 playerPos, int damage, string parentTag, Action<int> onSkillCollision)
+    public void InitSkillObject(int ownerInstancedId , bool isDirRight, Vector3 playerPos, int damage,
+        string parentTag, Action<int> onSkillCollision)
     {
 
         this.transform.position = playerPos;
@@ -47,7 +48,7 @@ public class DaniTech_SkillProjectile : DaniTech_SkillBase
 
     private void Update()
     {
-        transform.position += _moveDirection * 0.5f * Time.deltaTime;
+        transform.position += _moveDirection * ProgectileSpeed * Time.deltaTime;
     }
 
 

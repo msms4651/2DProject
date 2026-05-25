@@ -47,6 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cec92318da47a2c4abc8f9dafb7d5a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaniTech_GameMoster
+  SkillCoolTime: 3
+  Prefab_thisMonsterSkillObjet: {fileID: 7158394713744932054, guid: 8499085f8165a204eb056461108aeae2, type: 3}
+  SpriteRenderer_Monster: {fileID: 6627811897836811848}
+  _instanceId: 0
+  _dataId: 
+  _baseHp: 0
+  _baseAtk: 0
+  _isAlive: 1
 --- !u!50 &5336684423402810778
 Rigidbody2D:
   serializedVersion: 5
@@ -59,7 +67,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 5
@@ -202,7 +210,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: b7a9b30e19b516f4e8f485ca2d26cbbd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15dc4eb01dbeea343b3b8dfcdeb10bb6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -222,7 +230,7 @@ Animator:
   m_GameObject: {fileID: 2944356783977162841}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6335f15cd83a0e54f8857f7a5dd177f2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 997a405e5a64b5c4087d6af2e89a9d60, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
