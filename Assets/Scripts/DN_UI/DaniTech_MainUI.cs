@@ -34,8 +34,8 @@ public class DaniTech_MainUI : DaniTechUIBase
 
     public void OnClick_UseNormalAttack()
     {
-        var localPlayer = DaniTechGameManager.Inst.GetLocalPlayer();
-        localPlayer.UseNormalAttack();
+        var localPlayer = DaniTechGameManager.Inst.GetLocalPlayer(); //  DaniTechGameManager.Inst.LocalPlayer.UseNormalAttack();
+        localPlayer.UseNormalAttack();                                // 옆에꺼랑 동작은 똑같다
     }
 
     public void OnClick_UseFirstSkill()

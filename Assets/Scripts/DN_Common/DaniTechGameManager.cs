@@ -9,7 +9,7 @@ public class DaniTechGameManager : MonoBehaviour
     // 플레이어를 캐싱 -> 게임을 할때 1개라서
     // LocalPlayer(나) / RemotePlayer(너) / AuthPlayer
     // public DaniTech
-    public DaniTech_2DPlayer LocalPlayer;
+    // public DaniTech_2DPlayer LocalPlayer; -> GameObjectManager또는 GameManager의 GetLocalPlayer로 역할 이전됨
 
 
 
