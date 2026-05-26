@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaniTech_HudUI
   Prefab_HudSlot: {fileID: 5050955100504362482, guid: 74ee89c53bba9b941884a17f2ca57683, type: 3}
+  Transform_SlotRoot: {fileID: 8304911086016295640}
 --- !u!1001 &8241056019283948577
 PrefabInstance:
   m_ObjectHideFlags: 0

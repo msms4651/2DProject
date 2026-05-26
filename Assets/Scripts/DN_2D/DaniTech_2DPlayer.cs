@@ -74,6 +74,7 @@ public class DaniTech_2DPlayer : MonoBehaviour
     { 
         // 나 스스로를 등록한다 -> 씬에있는 그 2D플레이어가 등록됨
         DaniTechGameObjectManager.Inst.RegisterLocalPlayer(this);
+        DaniTechUIManager.Instance.AddHudSlot(0, this.gameObject.transform);
     }
 
 
