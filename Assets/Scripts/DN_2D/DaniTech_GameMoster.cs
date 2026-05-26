@@ -60,6 +60,13 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
 
     }
 
+    public int GetMonsterInstanceId() // 유니티에 GetOnstanceID와 헷갈리지 않게 조심
+    {
+        // 데이터 부에 있는것을 반환
+        // 
+        return _instanceId;
+    }
+
     private int GetFinalNormalAtkDamage(int baseAtk, float normalAtkMultiple)
     {
         return GetFinalSkillDamage(baseAtk, normalAtkMultiple);
@@ -145,7 +152,7 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
         _baseHp -= playerDamage;
 
         // 피격 이펙트 같은거 활성화
-        //SpriteRenderer_Damage.
+        //SpriteRenderer_Damage.gameObject.SetActive(true);
 
         // 몬스터 죽음
         if(_baseHp < 0)

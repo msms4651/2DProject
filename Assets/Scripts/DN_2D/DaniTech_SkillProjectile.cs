@@ -101,8 +101,14 @@ public class DaniTech_SkillProjectile : DaniTech_SkillBase
             var monsterComponent = gObj.GetComponent<DaniTech_GameMoster>();
             if (monsterComponent == null) return;
 
-            // 몬스터떄도 구현했던 1번 방식) 스킬 오브젝트가! 직접 데미지 부여를 한다
-            monsterComponent.TakeDamage(_damage);
+        
+
+            int instID = monsterComponent.GetMonsterInstanceId();
+            _onSkillCollision?.Invoke(instID, _damage);
+
+            // 1번방식 - 투사체가 직접 몬스터에게 데미지를 입힌다 : 다만, 게임오브젝트매니저를 통하는게 조금 더 최종폼
+            // monsterComponent.TakeDamage(skillDamage);
+
 
 
             //_onSkillCollision?.Invoke(0, _damage);

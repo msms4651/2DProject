@@ -20,7 +20,8 @@ public enum DaniTechUIType
     DNDialogueUI,
     DNInfoBookUI,
     DNRobbyUI,
-    DNGameBookUI
+    DNGameBookUI,
+    DNHudUI
         
 }
 
@@ -43,6 +44,7 @@ public static class DaniTechUIManagerExtension
         uiManager.OpenContentUI(DaniTechUIType.DNRobbyUI);
         // uiManager.OpenUI(DaniTechUIRootType.ContentUI, DaniTechUIType.DNRobbyUI); // 위랑 똑같은 원리
 
+        uiManager.OpenUI(DaniTechUIRootType.MainUI, DaniTechUIType.DNHudUI);
         uiManager.OpenUI(DaniTechUIRootType.MainUI, DaniTechUIType.DNMainUI);
         // 게임 로비 UI를 여기서 오픈해주자 -> uiManager.
         // MainUI도
@@ -120,5 +122,46 @@ public static class DaniTechUIManagerExtension
             dialogueUi.StartDialogue(startDialogueId);
         }
     }
+
+    public static void AddHudSlot(this DaniTechUIManager uiManager)
+    {
+        var uiBase = uiManager.GetOpenedUI(DaniTechUIRootType.MainUI, DaniTechUIType.DNHudUI);
+        if (uiBase == null) return;
+
+        if(uiBase is DaniTech_HudUI hudUi)
+        {
+            // 그 대상이 생성됐을 때 호출
+            // 몬스터 동적생성이 선행적으로 구조가 잘 잡혀있으므로 그걸 이용할수 있다
+            hudUi.AddHudSlot();
+
+
+        }
+
+
+    }
+    // 그 대사이 죽었을때 호출
+
+    public static void RemoveHudSlot(this DaniTechUIManager uiManager)
+    {
+        var uiBase = uiManager.GetOpenedUI(DaniTechUIRootType.MainUI, DaniTechUIType.DNHudUI);
+        if (uiBase == null) return;
+
+        if (uiBase is DaniTech_HudUI hudUi)
+        {
+            // 그 대상이 생성됐을 때 호출
+            // 몬스터 동적생성이 선행적으로 구조가 잘 잡혀있으므로 그걸 이용할수 있다
+            hudUi.RemoveHudSlot();
+
+
+        }
+
+    }
+
+
+
+
+
+
+
 }
 
