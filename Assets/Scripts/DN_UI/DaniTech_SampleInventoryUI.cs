@@ -15,12 +15,23 @@ public class DaniTech_SampleInventoryUI : DaniTechUIBase
 
     private void OnEnable()
     {
-        Button_UseSelectItem.BindOnClickButtonEvent(OnClick_UseSelectItem);
+        Button_UseSelectItem.BindOnClickButtonEvent(OnClick_UseSelectItem, true);
         Button_CloseSelf.BindOnClickButtonEvent(OnClick_ClosePopup);
         Button_CloseSelfAllArea.BindOnClickButtonEvent(OnClick_ClosePopup);
         SetInventoryItemSlotOnEnable();
 
-        Button_UseSelectItem.gameObject.SetActive(false);
+        ActiveUseSelectItemButton(false);
+
+    }
+
+    private void OnDisable()
+    {
+        //소멸이니까 나중에 신경써주셔도 되요
+        // _itemSlotList.Clear();
+        //Destroy
+
+        Button_UseSelectItem.UnBindOnClickButtonEvent(OnClick_UseSelectItem);
+
 
     }
 
@@ -50,12 +61,7 @@ public class DaniTech_SampleInventoryUI : DaniTechUIBase
     }
 
 
-    private void OnDisable()
-    {
-        // 소멸이니까 나중에 신경써주셔도 되요
-        // _itemSlotList.Clear();
-        // Destroy
-    }
+   
 
     public void OnClick_ClosePopup()
     {
@@ -76,10 +82,13 @@ public class DaniTech_SampleInventoryUI : DaniTechUIBase
         {
             RemoveItemSlot(_currentSelectedItemUniqedId);
             _currentSelectedItemUniqedId = 0;
-            Button_UseSelectItem.gameObject.SetActive(false);
-
+            ActiveUseSelectItemButton(false);
         }
 
+    }
+    private void ActiveUseSelectItemButton(bool isActive)
+    {
+        Button_UseSelectItem.gameObject.SetActive(isActive);
     }
 
     private void RemoveItemSlot(long removedItemUniqueId)
@@ -138,7 +147,7 @@ public class DaniTech_SampleInventoryUI : DaniTechUIBase
             if(isSlotSelected == true)
             {
                 _currentSelectedItemUniqedId = slot.SlotItemUniqueId;
-                Button_UseSelectItem.gameObject.SetActive(slot.IsUsableItem);
+                ActiveUseSelectItemButton(slot.IsUsableItem);
 
             }
         }

@@ -66,7 +66,7 @@ public class DaniTechGameManager : MonoBehaviour
     public bool RequestRemoveItem(long requestRemoveTargetItemUniqueId)
     {
         int removeTargerIdx = 0;
-        bool isRemoveItemExist;
+        bool isRemoveItemExist = false;
         foreach (var ItemModel in _playerModel.ItemList)
         {
             if(ItemModel.ItemUniqueId == requestRemoveTargetItemUniqueId)
