@@ -82,7 +82,10 @@ public class DaniTech_2DPlayer : MonoBehaviour
         DaniTechUIManager.Instance.AddHudSlot(0, this.gameObject.transform);
     }
 
-
+    private void OnDisable()
+    {
+        ResetStatChangedEvent();
+    }
 
 
 

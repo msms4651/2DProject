@@ -6,7 +6,7 @@
     "BaseHP": 500,
     "NormalAtkMultiple": 1,
     "BaseAtk": 20,
-    "SkillAtkMultiple": "2",
+    "SkillAtkMultipleList": "2",
     "IconPath": "Icon/Icon_Slime",
     "PrefabPath": "2DObject/Monster_Slime"
   },
@@ -17,7 +17,7 @@
     "BaseHP": null,
     "NormalAtkMultiple": null,
     "BaseAtk": null,
-    "SkillAtkMultiple": null,
+    "SkillAtkMultipleList": null,
     "IconPath": null,
     "PrefabPath": null
   },
@@ -28,7 +28,7 @@
     "BaseHP": null,
     "NormalAtkMultiple": null,
     "BaseAtk": null,
-    "SkillAtkMultiple": null,
+    "SkillAtkMultipleList": null,
     "IconPath": null,
     "PrefabPath": null
   },
@@ -39,7 +39,7 @@
     "BaseHP": 1500,
     "NormalAtkMultiple": 0.5,
     "BaseAtk": 100,
-    "SkillAtkMultiple": "1.5,5",
+    "SkillAtkMultipleList": "1.5,5",
     "IconPath": "Icon/Icon_Bear",
     "PrefabPath": "2DObject/Monster_Bear"
   }

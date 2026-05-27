@@ -42,6 +42,8 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
     private void OnDisable()
     {
         _isAlive = false;
+        ResetStatChangedEvent();
+
     }
 
 
@@ -167,10 +169,16 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
         // ¸ó½ºÅÍ Á×À½
         if (_baseHp < 0)
         {
-            Destroy(this.gameObject);
-            DaniTechUIManager.Instance.RemoveHudSlot(_instanceId);
+            OnBattleUnitDie();
 
         }
+
+    }
+
+    private void OnBattleUnitDie()
+    {
+        DaniTechUIManager.Instance.RemoveHudSlot(_instanceId);
+        Destroy(this.gameObject);
 
     }
 
