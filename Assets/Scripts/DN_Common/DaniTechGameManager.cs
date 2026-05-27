@@ -63,16 +63,34 @@ public class DaniTechGameManager : MonoBehaviour
         _playerModel.ItemList.Add(newItem);
     }
 
-    //public bool RemoveItem(long requestRemoveTargetItemUnoqueId)
-    //{
+    public bool RequestRemoveItem(long requestRemoveTargetItemUniqueId)
+    {
+        int removeTargerIdx = 0;
+        bool isRemoveItemExist;
+        foreach (var ItemModel in _playerModel.ItemList)
+        {
+            if(ItemModel.ItemUniqueId == requestRemoveTargetItemUniqueId)
+            {
 
-    //    foreach(var ItemModel in _playerModel.ItemList)
-    //    {
 
-    //    }
+                isRemoveItemExist = true;
+                break;
+            }
+            removeTargerIdx++;
+
+        }
+
+        if(isRemoveItemExist == true)
+        {
+            _playerModel.ItemList.RemoveAt(removeTargerIdx);
+            SaveData();
+            return true;
+        }
+
+        return false;
 
 
-    //}
+    }
 
     public List<DaniTechItemModel> GetPlayerItemList()
     {

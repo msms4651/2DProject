@@ -15,7 +15,7 @@ public class DaniTech_SampleInventorySlotUI : MonoBehaviour
 
     private event Action<long> OnSelectEvent;
 
-    public int SlotItemUniqueId { get; private set; }
+    public long SlotItemUniqueId { get; private set; }
     public bool IsUsableItem { get; private set; }
 
     private void OnEnable()
@@ -40,7 +40,8 @@ public class DaniTech_SampleInventorySlotUI : MonoBehaviour
             return;
         }
 
-        //IsUsableItem = (string.IsNullOrEmpty(itemDataId.UseItemType) == false);
+
+        IsUsableItem = (string.IsNullOrEmpty(itemData.UseItemType) == false);
 
         // + Addressable을 적용하면서 비동기로 바뀌었다
         //DaniTechResourceManager.Inst.LoadSprite(iconPath, (sprite) => {
@@ -65,12 +66,12 @@ public class DaniTech_SampleInventorySlotUI : MonoBehaviour
         OnSelectEvent = null;
     }
 
-    //public void InitSlot(long slotUniqueId, string itemDataId, int itemStackCount)
-    //{
-    //    SlotItemUniqueId = slotUniqueId;
-    //    SetIcon(itemDataId, itemStackCount);
-    //    // Text_StackCount.text = slotInstanceId.ToString();
-    //}
+    public void InitSlot(long slotUniqueId, string itemDataId, int itemStackCount)
+    {
+        SlotItemUniqueId = slotUniqueId;
+        SetIcon(itemDataId, itemStackCount);
+        // Text_StackCount.text = slotInstanceId.ToString();
+    }
 
     public void OnClick_SelectItem()
     {
