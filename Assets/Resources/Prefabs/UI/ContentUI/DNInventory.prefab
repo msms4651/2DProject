@@ -338,7 +338,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC0DD\uC131"
+  m_Text: "\uC0AC\uC6A9"
 --- !u!1 &4807833992326308474
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 208965479850017380}
   - component: {fileID: 3367850852224106352}
   m_Layer: 5
-  m_Name: Button_TestCreateSlot
+  m_Name: Button_UseItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

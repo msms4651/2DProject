@@ -1,7 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DaniTech_HudSlotUI : MonoBehaviour
 {
+    [SerializeField] private int SlotOffsetY;
+
+    [SerializeField] private GameObject Layout_TextArea;
+    [SerializeField] private Text Text_Name;
+    [SerializeField] private Slider Slider_Hp;
+    [SerializeField] private Slider Slider_Mp;
+
+
     private int _instanceId;
 
     // 참조형을 기록(캐싱)
@@ -11,6 +20,41 @@ public class DaniTech_HudSlotUI : MonoBehaviour
     {
         _instanceId = instanceId;
         _targetTransfrom = targetTransform;
+        SlotOffsetY = 120;
+
+        TryBindStatChangedEvect(targetTransform.gameObject);
+    }
+
+    private void TryBindStatChangedEvect(GameObject gObj)
+    {
+        // gObj가 몬스터거나 , 플레이어라면 GetComponent를 시도해보고, 잘 되면 그 곳에 있는 이벤트를 구독하자
+        var player = gObj.GetComponent<DaniTech_2DPlayer>();
+        if (player != null)
+        {
+            player.BindOnStatChangedEvect(OnTargetEntityHpChanged, OnTargetEntityMpChanged);
+
+            return;
+        }
+
+        var monster = gObj.GetComponent<DaniTech_GameMoster>();
+        if (monster != null)
+        {
+            monster.BindOnStatChangedEvect(OnTargetEntityHpChanged, OnTargetEntityMpChanged);
+            return;
+        
+        }
+
+    }
+
+    private void OnTargetEntityHpChanged(int curHp, int maxHp)
+    {
+        Slider_Hp.value = (curHp / (float)maxHp);
+    }
+
+    private void OnTargetEntityMpChanged(int curMp, int maxMp)
+    {
+        Slider_Mp.value = (curMp / (float)maxMp);
+
     }
 
     private void Update()
@@ -28,7 +72,8 @@ public class DaniTech_HudSlotUI : MonoBehaviour
             var rectTransform = this.GetComponent<RectTransform>();
             if(rectTransform != null)
             {
-                rectTransform.anchoredPosition = screenPos;
+                Vector2 finalScreenPos = new Vector2(screenPos.x, screenPos.y - SlotOffsetY);
+                rectTransform.anchoredPosition = finalScreenPos;
             }
 
         }

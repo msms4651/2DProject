@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ public class DaniTech_2DPlayer : MonoBehaviour
    
 
     [Header("전투 관련 정보")]
+    [SerializeField] private int _maxHp ;
     [SerializeField] private int _playerHp = 1000;
     [SerializeField] private int _playerBaseAtk = 100;
 
@@ -53,6 +55,8 @@ public class DaniTech_2DPlayer : MonoBehaviour
     private bool _isOverlapSkillVisible = false;
 
 
+    private event Action<int, int> _onHpChanged;
+    private event Action<int, int> _onMpChanged;
 
 
 
@@ -67,7 +71,8 @@ public class DaniTech_2DPlayer : MonoBehaviour
         _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
         Collider_PlayerNormalAttack.gameObject.SetActive(false);
 
-
+        _playerHp = 1000;
+        _maxHp = _playerHp;
     }
 
     private void Start()
@@ -368,10 +373,13 @@ public class DaniTech_2DPlayer : MonoBehaviour
         _playerHp -= damage;
         Debug.Log($"{_playerHp}");
 
+        InvokeStatChangedEvent();
         if (_playerHp - damage < 0)
         {
             // 죽음 처리를 여기서 해두고
             PlayerDie();
+            DaniTechUIManager.Instance.RemoveHudSlot(0);
+
         }
 
 
@@ -382,8 +390,28 @@ public class DaniTech_2DPlayer : MonoBehaviour
         // bool _isAlive = false;
     }
 
+    public void BindOnStatChangedEvect(Action<int, int> hpChangeCallback, Action<int, int> mpChangeCallback)
+    {
+        _onHpChanged += hpChangeCallback;
+        _onMpChanged += mpChangeCallback;
 
 
+
+    }
+
+    public void ResetStatChangedEvent()
+    {
+        _onHpChanged = null;
+        _onMpChanged = null;
+    }
+
+    private void InvokeStatChangedEvent()
+    {
+        // 우선 HP든 MP든 하나라도 바뀌면 다 호출해준다
+        _onHpChanged?.Invoke(_playerHp, _maxHp);
+        //_onMpChanged?.Invoke(_playerMp);
+
+    }
 
 
     private void OnDrawGizmos()

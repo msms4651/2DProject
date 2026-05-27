@@ -6,20 +6,23 @@ public class DaniTech_SampleInventoryUI : DaniTechUIBase
 {
     [SerializeField] private GameObject Prefab_Slot;
     [SerializeField] private Transform Transform_UISlotRoot;
-    [SerializeField] private DaniTechUIButton Button_CreateSlot;
+    [SerializeField] private DaniTechUIButton Button_UseSelectItem;
     [SerializeField] private DaniTechUIButton Button_CloseSelf;
     [SerializeField] private DaniTechUIButton Button_CloseSelfAllArea;
 
     private int _generatedKey = 0;
-    private Dictionary<int, DaniTech_SampleInventorySlotUI> _itemSlotList = new Dictionary<int, DaniTech_SampleInventorySlotUI>();
-
+    private Dictionary<long, DaniTech_SampleInventorySlotUI> _itemSlotList = new Dictionary<long, DaniTech_SampleInventorySlotUI>();
+    private long _currentSelectedItemUniqedId = 0;
 
     private void OnEnable()
     {
-        Button_CreateSlot.BindOnClickButtonEvent(OnClick_CreateSlotTest);
+        Button_UseSelectItem.BindOnClickButtonEvent(OnClick_UseSelectItem);
         Button_CloseSelf.BindOnClickButtonEvent(OnClick_ClosePopup);
         Button_CloseSelfAllArea.BindOnClickButtonEvent(OnClick_ClosePopup);
         SetInventoryItemSlotOnEnable();
+
+        Button_UseSelectItem.gameObject.SetActive(false);
+
     }
 
     private void SetInventoryItemSlotOnEnable()
@@ -43,7 +46,7 @@ public class DaniTech_SampleInventoryUI : DaniTechUIBase
 
         foreach (var itemModel in itemList) 
         {
-            CreateSlot(itemModel.ItemDataId, itemModel.ItemStackCount);
+            //CreateSlot(itemModel.ItemDataId, itemModel.ItemStackCount);
         }
     }
 
@@ -61,12 +64,39 @@ public class DaniTech_SampleInventoryUI : DaniTechUIBase
     }
 
 
-    public void OnClick_CreateSlotTest()
+    public void OnClick_UseSelectItem()
     {
-        // CreateSlot();
+        RequestSelectedUseItem();
     }
 
-    private void CreateSlot(string itemDataId, int itemStackCount)
+    private void RequestSelectedUseItem()
+    {
+        //bool isItemRemoved = DaniTechGameDataManager.Inst.Request,,,(_currentSelectedItemUniqedId)
+    }
+
+    private void RemoveItemSlot(long removedItemUniqueId)
+    {
+        // 저장 정보에서 먼저 아이텐이 제거된 후에
+        // 그 다음에 슬롯을 제어해야 한다
+        if(_itemSlotList.ContainsKey(removedItemUniqueId) == false)
+        {
+            Debug.LogError("이상합니다 제거가 된 아이템의 슬롯을 찾을수가 없네요!");
+            return;
+        }
+
+        var slotComponent = _itemSlotList[removedItemUniqueId];
+        Destroy(slotComponent.gameObject);
+
+
+    }
+
+
+
+    // 나중에 규모가 커지면 이렇게 파라미터를 일일이 받는게 아니라, Model 받아올수도 있다
+    //  private void CreateSlot(DaniTechItemModel itemModel)
+  
+
+    private void CreateSlot(long itemUniqueId, string itemDataId, int itemStackCount)
     {
         // 1-1 수동 SetParant가 뒤에 지금은 자동으로 해주고 있다
         var gObj = Instantiate(Prefab_Slot, Transform_UISlotRoot);
@@ -79,26 +109,38 @@ public class DaniTech_SampleInventoryUI : DaniTechUIBase
         _generatedKey++;
 
         // 1-3 여기서 slotComponent가지고 뭔가를 하는 겁니다!
-        slotComponent.InitSlot(_generatedKey, itemDataId, itemStackCount);
-        slotComponent.gameObject.name = $"ItemSlot : {slotComponent.SlotInstanceId}";
+        //slotComponent.InitSlot(_generatedKey, itemDataId, itemStackCount);
+        slotComponent.gameObject.name = $"ItemSlot : {slotComponent.SlotItemUniqueId}";
 
         // 1-4 중복체크 해주면 좋긴 하지만, 일단 쉽게 컴포넌트(컴포넌트로 게임오브젝트는 받을 수 있으므로)를 보관해보자
-        _itemSlotList.Add(slotComponent.SlotInstanceId, slotComponent);
+        _itemSlotList.Add(slotComponent.SlotItemUniqueId, slotComponent);
 
         slotComponent.BindSlotSelectEvent(OnChildSlotSelected);
     }
 
 
-    private void OnChildSlotSelected(int selectedSlotInstanceId)
+    private void OnChildSlotSelected(long selectedItemUniqueId)
     {
         foreach(var slotKv in _itemSlotList)
         {
             var slot = slotKv.Value;
-            bool isSlotSelected = (selectedSlotInstanceId == slot.SlotInstanceId);
+            bool isSlotSelected = (selectedItemUniqueId == slot.SlotItemUniqueId);
             slot.ChangeSelectedState(isSlotSelected);
+
+            if(isSlotSelected == true)
+            {
+
+                
+
+
+                Button_UseSelectItem.gameObject.SetActive(isSlotSelected);
+
+            }
         }
 
-        Debug.LogWarning($"자식 슬롯 {selectedSlotInstanceId} 선택됨!");
+
+
+        //Debug.LogWarning($"자식 슬롯 {selectedSlotInstanceId} 선택됨!");
     }
 
 }

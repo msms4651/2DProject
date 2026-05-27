@@ -9,7 +9,6 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
     [Header("몬스터 프리팹에서 미리 세팅할 데이터")]
     public float SkillCoolTime;
     public GameObject Prefab_thisMonsterSkillObjet;
-
     [SerializeField] private SpriteRenderer SpriteRenderer_Monster;
 
 
@@ -28,9 +27,16 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
     public int _baseAtk;
     public bool _isAlive = true;
     private bool _lookRight = true;
+    private int _maxHp;
+
 
 
     private Vector3 _moveDirection;
+
+
+    private event Action<int, int> _onHpChanged;
+    private event Action<int, int> _onMpChanged;
+
 
 
     private void OnDisable()
@@ -53,9 +59,11 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
             // 이 몬스터가 생성된 시점에서 자신의 엑셀 -> JSON을 거친 데이터를 캐싱해둔다
             _thisMonsterData = monsterData;
             _baseHp = _thisMonsterData.BaseHp;
+            _maxHp = _baseHp;
             _baseAtk = _thisMonsterData.BaseAtk;
         }
 
+        DaniTechUIManager.Instance.AddHudSlot(instanceId, this.gameObject.transform);
         StartCoroutine(CheckAndUseSkill());
 
     }
@@ -154,11 +162,39 @@ public class DaniTech_GameMoster : DaniTech_MosterBase
         // 피격 이펙트 같은거 활성화
         //SpriteRenderer_Damage.gameObject.SetActive(true);
 
+        InvokeStatChangedEvent();
+
         // 몬스터 죽음
-        if(_baseHp < 0)
+        if (_baseHp < 0)
         {
             Destroy(this.gameObject);
+            DaniTechUIManager.Instance.RemoveHudSlot(_instanceId);
+
         }
+
+    }
+
+
+    public void BindOnStatChangedEvect(Action<int, int> hpChangeCallback, Action<int, int> mpChangeCallback)
+    {
+        _onHpChanged += hpChangeCallback;
+        _onMpChanged += mpChangeCallback;
+
+
+
+    }
+
+    public void ResetStatChangedEvent()
+    {
+        _onHpChanged = null;
+        _onMpChanged = null;
+    }
+
+    private void InvokeStatChangedEvent()
+    {
+        // 우선 HP든 MP든 하나라도 바뀌면 다 호출해준다
+        _onHpChanged?.Invoke(_baseHp, _maxHp);
+        //_onMpChanged?.Invoke(_playerMp);
 
     }
 }

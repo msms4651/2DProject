@@ -141,7 +141,7 @@ public static class DaniTechUIManagerExtension
     }
     // 그 대사이 죽었을때 호출
 
-    public static void RemoveHudSlot(this DaniTechUIManager uiManager)
+    public static void RemoveHudSlot(this DaniTechUIManager uiManager, int instanceId)
     {
         var uiBase = uiManager.GetOpenedUI(DaniTechUIRootType.MainUI, DaniTechUIType.DNHudUI);
         if (uiBase == null) return;
@@ -150,7 +150,7 @@ public static class DaniTechUIManagerExtension
         {
             // 그 대상이 생성됐을 때 호출
             // 몬스터 동적생성이 선행적으로 구조가 잘 잡혀있으므로 그걸 이용할수 있다
-            hudUi.RemoveHudSlot();
+            hudUi.RemoveHudSlot(instanceId);
 
 
         }
