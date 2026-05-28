@@ -431,7 +431,15 @@ public class DaniTech_2DPlayer : MonoBehaviour
         Gizmos.DrawWireSphere(center, _lastOverlapRadius);
     }
 
-
+    public void AddHp(int hp)
+    {
+        _playerHp += hp;
+        InvokeStatChangedEvent();
+    }
+    public void AddAtk(int atk)
+    {
+        _playerBaseAtk += atk;
+    }
 
 
 

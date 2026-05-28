@@ -77,7 +77,7 @@ public class DaniTech_SampleInventoryUI : DaniTechUIBase
     private void RequestSelectedUseItem()
     {
         // 게임 매니저에 아이템 제거를 요청
-        bool isItemRemoved = DaniTechGameManager.Inst.RequestRemoveItem(_currentSelectedItemUniqedId);
+        bool isItemRemoved = DaniTechGameManager.Inst.RequestUseItem(_currentSelectedItemUniqedId);
         if(isItemRemoved == true)
         {
             RemoveItemSlot(_currentSelectedItemUniqedId);
