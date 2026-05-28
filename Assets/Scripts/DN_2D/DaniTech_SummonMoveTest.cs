@@ -5,7 +5,7 @@ using UnityEngine;
 public class DaniTech_SummonMoveTest : MonoBehaviour
 {
     [Header("자동 전진 설정")]
-    [SerializeField] private float _forwardSpeed = 3f;
+    [SerializeField] private float _forwardSpeed = 0.2f;
 
 
     [Header("좌우 테스트 이동 설정")]
