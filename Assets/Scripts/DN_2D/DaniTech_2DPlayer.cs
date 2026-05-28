@@ -167,7 +167,7 @@ public class DaniTech_2DPlayer : MonoBehaviour
             // 지면 같은 오브젝트와 점프시 충돌이 계속 오므로 이렇게 태그로 먼저 비교하는게 좋다
             // 중단점을 찍어보면서 확인 추천
         if (collision.gameObject.CompareTag("Enemy") == false)
-        {
+        { 
             return;
         }
 
