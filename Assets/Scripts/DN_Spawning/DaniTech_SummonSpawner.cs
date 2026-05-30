@@ -15,6 +15,9 @@ public class DaniTech_SummonSpawner : MonoBehaviour
     [Header("연속 소환 방지")]
     [SerializeField] private float _spawnCooldown = 0.1f;
 
+    [Header("UI 클릭 차단")]
+    [SerializeField] private bool _blockSpawnWhenPointerOverUI = false;
+
     private Vector2 _pressStartPosition;
     private float _pressStartTime;
     private bool _isPressing;
@@ -39,27 +42,29 @@ public class DaniTech_SummonSpawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (IsPointerOverUI())
+
+            if (_blockSpawnWhenPointerOverUI && IsPointerOverUI())
             {
+
+                Debug.Log("UI 위 클릭으로 판단되어 소환하지 않음");
                 return;
+
             }
 
             _isPressing = true;
             _pressStartPosition = Input.mousePosition;
             _pressStartTime = Time.time;
+            }
 
-        }
-        if (Input.GetMouseButtonUp(0) && _isPressing)
+        if (Input.GetMouseButtonUp(0)&& _isPressing)
         {
-            _isPressing = false;
+            _isPressing= false;
 
             Vector2 releasePosition = Input.mousePosition;
             TrySpawnByTap(releasePosition);
         }
-                
 
-                
-    }
+        }
 
 
     private void HandleTouchInput()
@@ -73,8 +78,9 @@ public class DaniTech_SummonSpawner : MonoBehaviour
 
         if (touch.phase == TouchPhase.Began)
         {
-            if (IsPointerOverUI(touch.fingerId))
+            if (_blockSpawnWhenPointerOverUI && IsPointerOverUI(touch.fingerId))
             {
+                Debug.Log("UI 위 터치로 판단되어 소환하지 않음");
                 return;
             }
 
