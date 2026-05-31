@@ -6,7 +6,7 @@ public class DaniTechUIButton : MonoBehaviour
 {
     [SerializeField] private Button Button_Base;
     [SerializeField] private Text Text_Base;
-    [SerializeField] private Image Image_Base;
+    [SerializeField] private RawImage Image_Base;
     [SerializeField] private Image Image_Select;
 
     // 수동으로 끊어주겠습니다

@@ -557,7 +557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 300813755886707366}
   Text_Base: {fileID: 7193193947927721071}
-  Image_Base: {fileID: 6313860060761620450}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &1164663659998402580
 GameObject:
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 6600838869382703480}
   Text_Base: {fileID: 7290382631187603612}
-  Image_Base: {fileID: 2181407646894281510}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &2389601986087959905
 GameObject:
@@ -1197,7 +1197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 6304805378625740292}
   Text_Base: {fileID: 6412209257502872641}
-  Image_Base: {fileID: 8914482682714959471}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &3062713125469427384
 GameObject:
@@ -1368,7 +1368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5565658276127259482
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2453,7 +2453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6675076241073804847
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2719,7 +2719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 567689506411527897}
   Text_Base: {fileID: 8704426307468970112}
-  Image_Base: {fileID: 5772822235927670076}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &5715720073862035582
 GameObject:
@@ -3040,7 +3040,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4572967430477454179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3112,7 +3112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 3931480271329486405}
   Text_Base: {fileID: 8776879462968601627}
-  Image_Base: {fileID: 2119416876097610965}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &6344324611032472320
 GameObject:
@@ -3165,7 +3165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 1445523125208977516}
   Text_Base: {fileID: 7720019259850581557}
-  Image_Base: {fileID: 4896114534208521097}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &6382620467774331809
 GameObject:
@@ -3922,7 +3922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 7491471820621827568}
   Text_Base: {fileID: 4390747652683189463}
-  Image_Base: {fileID: 9153343790170231817}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &7173218582144229399
 GameObject:
@@ -4148,7 +4148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3485014401546174952
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4257,7 +4257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 7344816268550462577}
   Text_Base: {fileID: 7104618072748803180}
-  Image_Base: {fileID: 3518476223111639822}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &7611615575576586381
 GameObject:
@@ -4755,7 +4755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 2585309551955467167}
   Text_Base: {fileID: 6686823269738884550}
-  Image_Base: {fileID: 8366884307899975802}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &8203030211474544795
 GameObject:

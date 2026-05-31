@@ -13,32 +13,39 @@ public class DaniTech_LoadingUI : DaniTechUIBase
     [SerializeField] private UnityEngine.Color[] ColorArray_LoadingBar;
 
     private CancellationTokenSource _cancelToken;
-    float[] _pausePoints = { 0.1f, 0.1f, 0.1f };
+    float[] _pausePoints = { 0.2f, 0.5f, 0.8f };
     int _pauseIndex = 0;
 
     private void OnEnable()
     {
+        _pauseIndex = 0;
         LoadAndSetLoadingImg();
 
     }
 
     private void LoadAndSetLoadingImg()
     {
-        int randomIdx = UnityEngine.Random.Range(0, 2);
+        int randomIdx = UnityEngine.Random.Range(0, 4);
 
         string texturePath = string.Empty;
         switch (randomIdx)
         {
             case 0:
-                texturePath = "Texture2D/Texture2D_Loading_1";
+                texturePath = "UI/Bg_1";
                 break;
             case 1:
-                texturePath = "Texture2D/Texture2D_Loading_2";
+                texturePath = "UI/Bg_2";
+                break;
+            case 2:
+                texturePath = "UI/Bg_3";
+                break;
+            case 3:
+                texturePath = "UI/Bg_4";
                 break;
         }
 
         DaniTechGameUtil.LoadAndSetTexture(RawImage_LoadingImg, texturePath).Forget();
-        StartLoadingResouce(0.5f).Forget();
+        StartLoadingResouce(2.0f).Forget();
     }
 
     private async UniTaskVoid StartLoadingResouce(float duration)
