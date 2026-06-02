@@ -8,14 +8,30 @@ public class DaniTech_SummonMoveTest : MonoBehaviour
     [SerializeField] private float _forwardSpeed = 0.2f;
 
 
-    [Header("좌우 테스트 이동 설정")]
-    [SerializeField] private float _sideMoveSpeed = 5f;
+   
 
     [Header("이동 방향")]
     [SerializeField] private Vector2 _moveDirection = Vector2.up;
 
+    [Header("벽 회피 설정")]
+    [SerializeField] private LayerMask _wallLayer;
+
+    [SerializeField] private float _frontCheckDistance = 0.3f;
+    [SerializeField] private float _sideCheckDistance = 0.4f;
+    [SerializeField] private float _checkRadius = 0.2f;
+
+    [SerializeField] private float _avoidSideSpeed = 1.2f;
+    [SerializeField] private float _blockForwardMultiplier = 0.15f;
+    [SerializeField] private float _decisionKeepTime = 0.25f;
+
+   
+
+
+
     private Rigidbody2D _rigidBody;
-    private float _horizontalInput;
+
+    private int _avoidDirection;
+    private float _nextDecisionTime;
 
     private void Awake()
     {
@@ -25,20 +41,7 @@ public class DaniTech_SummonMoveTest : MonoBehaviour
         _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
-    private void Update()
-    {
-        _horizontalInput = 0f;
-
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            _horizontalInput = -1f;
-        } 
-
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            _horizontalInput += 1f;
-        }
-    }
+   
 
     private void FixedUpdate()
     {
@@ -47,12 +50,102 @@ public class DaniTech_SummonMoveTest : MonoBehaviour
 
     private void Move()
     {
-        Vector2 forwardVelocity = _moveDirection.normalized * _forwardSpeed;
-        Vector2 sideVelocity = Vector2.right * (_horizontalInput * _sideMoveSpeed);
+        Vector2 forwardDirection = _moveDirection.normalized;
 
-        _rigidBody.linearVelocity = forwardVelocity + sideVelocity;
+        bool frontBlocked = IsBlocked(forwardDirection, _frontCheckDistance);
+
+        Vector2 velocity = forwardDirection * _forwardSpeed;
+
+        if (frontBlocked)
+        {
+            if(_avoidDirection == 0 || Time.time >= _nextDecisionTime)
+            {
+                ChooseAvoidDirection();
+            }
+
+            if(_avoidDirection == 0)
+            {
+                _rigidBody.linearVelocity = Vector2.zero;
+                return;
+            }
+
+            Vector2 sideDirection = Vector2.right * _avoidDirection;
+
+            bool sideBlocked = IsBlocked(sideDirection, _sideCheckDistance);
+
+            if (sideBlocked)
+            {
+
+                _avoidDirection = _avoidDirection * -1;
+                sideDirection = Vector2.right * _avoidDirection;
+                sideBlocked = IsBlocked(sideDirection, _sideCheckDistance);
+            }
+
+            if(sideBlocked == false)
+            {
+                Vector2 slowForwardVelocity = forwardDirection * (_forwardSpeed * _blockForwardMultiplier);
+                Vector2 sideVelocity = sideDirection * _avoidSideSpeed;
+
+                velocity = slowForwardVelocity + sideVelocity;
+            }
+            else
+            {
+                velocity = Vector2.zero;
+            }
+
+        }
+        else
+        {
+            _avoidDirection = 0;
+        }
+
+        _rigidBody.linearVelocity = velocity;
+
+
     }
 
+    // 좌 우 어느방향으로 피할지 결정
+    private void ChooseAvoidDirection()
+    {
+        bool leftBlocked = IsBlocked(Vector2.left, _sideCheckDistance);
+        bool rightBlocked = IsBlocked(Vector2.right, _sideCheckDistance);
+
+        if (leftBlocked && rightBlocked)
+        {
+            _avoidDirection = 0;
+        }
+        else if (leftBlocked)
+        {
+            _avoidDirection = 1;
+        }
+        else if (rightBlocked)
+        {
+            _avoidDirection = -1;
+        }
+        else
+        {
+            _avoidDirection = Random.value < 0.5f ? -1 : 1;
+        }
+
+        _nextDecisionTime = Time.time + _decisionKeepTime;
+    }
+
+    // 특정 방향에 벽이 있는지 검사
+    private bool IsBlocked(Vector2 direction, float distance)
+    {
+        if(direction == Vector2.zero)
+        {
+            return false;
+        }
+
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkRadius, direction.normalized, distance, _wallLayer);
+
+
+        return hit.collider != null;
+
+    }
+
+   
 
 
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5723270309221173009}
   - component: {fileID: 6487630460142085552}
   - component: {fileID: 8407867429174361322}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: -0.5, y: 0.2}
-  m_Size: {x: 6.19, y: 0.75}
+  m_Size: {x: 0.4, y: 0.5}
   m_Direction: 0
 --- !u!114 &8407867429174361322
 MonoBehaviour:
@@ -171,5 +171,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaniTech_SummonMoveTest
   _forwardSpeed: 1
-  _sideMoveSpeed: 5
   _moveDirection: {x: 0, y: 1}
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _frontCheckDistance: 0.3
+  _sideCheckDistance: 0.4
+  _checkRadius: 0.2
+  _avoidSideSpeed: 1.2
+  _blockForwardMultiplier: 0.15
+  _decisionKeepTime: 0.25
