@@ -1,42 +1,43 @@
 using UnityEngine;
 
-
 [RequireComponent(typeof(Rigidbody2D))]
 public class DaniTech_SummonMoveTest : MonoBehaviour
 {
+    private enum MoveState
+    {
+        Forward,
+        BounceBack,
+        SideKick
+    }
+
     [Header("자동 전진 설정")]
-    [SerializeField] private float _forwardSpeed = 0.2f;
-
-
-   
-
-    [Header("이동 방향")]
+    [SerializeField] private float _forwardSpeed = 1.4f;
     [SerializeField] private Vector2 _moveDirection = Vector2.up;
 
-    [Header("벽 회피 설정")]
+    [Header("벽 감지 설정")]
     [SerializeField] private LayerMask _wallLayer;
-
     [SerializeField] private float _frontCheckDistance = 0.3f;
-    [SerializeField] private float _sideCheckDistance = 0.4f;
-    [SerializeField] private float _checkRadius = 0.2f;
+    [SerializeField] private float _sideCheckDistance = 0.25f;
+    [SerializeField] private float _checkRadius = 0.1f;
 
-    [SerializeField] private float _avoidSideSpeed = 1.2f;
-    [SerializeField] private float _blockForwardMultiplier = 0f;
-    [SerializeField] private float _decisionKeepTime = 0.25f;
+    [Header("뒤로 튕김 설정")]
+    [SerializeField] private float _bounceBackSpeed = 0.8f;
+    [SerializeField] private float _bounceBackTime = 0.1f;
 
-    [SerializeField] private float _stuckCheckTime = 0.4f;
-    [SerializeField] private float _stuckMoveThreshold = 0.005f;
-    [SerializeField] private float _stuckSideBoost = 1.4f;
-
-
+    [Header("좌우 회피 설정")]
+    [SerializeField] private float _sideKickSpeed = 1.2f;
+    [SerializeField] private float _sideKickForwardMultiplier = 0.12f;
+    [SerializeField] private float _minSideKickTime = 0.2f;
+    [SerializeField] private float _sideChangeCooldown = 0.25f;
 
     private Rigidbody2D _rigidBody;
 
-    private int _avoidDirection;
-    private float _nextDecisionTime;
+    private MoveState _moveState = MoveState.Forward;
 
-    private Vector2 _lastPosition;
-    private float _stuckTimer;
+    private int _sideDirection;
+    private float _bounceTimer;
+    private float _sideKickTimer;
+    private float _nextSideChangeTime;
 
     private void Awake()
     {
@@ -45,10 +46,18 @@ public class DaniTech_SummonMoveTest : MonoBehaviour
         _rigidBody.gravityScale = 0f;
         _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        _lastPosition = _rigidBody.position;
-    }
+        if (_moveDirection == Vector2.zero)
+        {
+            _moveDirection = Vector2.up;
+        }
 
-   
+        if (_wallLayer.value == 0)
+        {
+            _wallLayer = LayerMask.GetMask("wall");
+        }
+
+        _sideDirection = Random.value < 0.5f ? -1 : 1;
+    }
 
     private void FixedUpdate()
     {
@@ -58,193 +67,146 @@ public class DaniTech_SummonMoveTest : MonoBehaviour
     private void Move()
     {
         Vector2 forwardDirection = _moveDirection.normalized;
+        Vector2 velocity = Vector2.zero;
 
+        if (_moveState == MoveState.Forward)
+        {
+            velocity = MoveForward(forwardDirection);
+        }
+        else if (_moveState == MoveState.BounceBack)
+        {
+            velocity = MoveBounceBack(forwardDirection);
+        }
+        else if (_moveState == MoveState.SideKick)
+        {
+            velocity = MoveSideKick(forwardDirection);
+        }
+
+        _rigidBody.linearVelocity = velocity;
+    }
+
+    private Vector2 MoveForward(Vector2 forwardDirection)
+    {
         bool frontBlocked = IsBlocked(forwardDirection, _frontCheckDistance);
 
-        Vector2 velocity = forwardDirection * _forwardSpeed;
-
-        if (frontBlocked)
+        if (frontBlocked == true)
         {
-            if(_avoidDirection == 0 || Time.time >= _nextDecisionTime)
-            {
-                ChooseAvoidDirection();
-            }
-
-            if (_avoidDirection == 0)
-            {
-                velocity = Vector2.zero;
-            }
-            else
-            {
-                Vector2 sideDirection = Vector2.right * _avoidDirection;
-
-                bool sideBlocked = IsBlocked(sideDirection, _sideCheckDistance);
-
-                if (sideBlocked)
-                {
-
-                    _avoidDirection = _avoidDirection * -1;
-                    sideDirection = Vector2.right * _avoidDirection;
-                    sideBlocked = IsBlocked(sideDirection, _sideCheckDistance);
-                }
-
-                if (sideBlocked == false)
-                {
-                    Vector2 slowForwardVelocity = forwardDirection * (_forwardSpeed * _blockForwardMultiplier);
-                    Vector2 sideVelocity = sideDirection * _avoidSideSpeed;
-
-                    velocity = slowForwardVelocity + sideVelocity;
-                }
-                else
-                {
-                    velocity = Vector2.zero;
-                }
-            }
-
-            }
-        else
-        {
-            _avoidDirection = 0;
+            StartBounceBack();
+            return -forwardDirection * _bounceBackSpeed;
         }
 
-        float movedDistance = Vector2.Distance(_rigidBody.position, _lastPosition);
-
-        if(movedDistance < _stuckMoveThreshold)
-        {
-            _stuckTimer += Time.fixedDeltaTime;
-        }
-        else
-        {
-            _stuckTimer = 0f;
-        }
-
-        if(_stuckTimer >= _stuckCheckTime)
-        {
-            if(_avoidDirection == 0)
-            {
-                _avoidDirection = Random.value < 0.5f ? -1 : 1;
-            }
-            else
-            {
-                _avoidDirection = _avoidDirection * -1;
-            }
-
-            Vector2 stuckEscapeDirection = Vector2.right * _avoidDirection;
-            velocity = stuckEscapeDirection * (_avoidSideSpeed * _stuckSideBoost);
-
-            _stuckTimer = 0f;
-            _nextDecisionTime = Time.time + _decisionKeepTime;
-        }
-
-        _lastPosition = _rigidBody.position;
-
-            _rigidBody.linearVelocity = velocity;
-
-
-
-
+        return forwardDirection * _forwardSpeed;
     }
 
-    // 좌 우 어느방향으로 피할지 결정
-    private void ChooseAvoidDirection()
+    private Vector2 MoveBounceBack(Vector2 forwardDirection)
     {
-        float leftScore = GetOpenSideScore(-1);
-        float rightScore = GetOpenSideScore(1);
+        _bounceTimer -= Time.fixedDeltaTime;
 
-
-        if (leftScore <= 0f && rightScore <= 0f)
+        if (_bounceTimer <= 0f)
         {
-            _avoidDirection = 0;
-        }
-        else if (rightScore > leftScore )
-        {
-            _avoidDirection = 1;
-        }
-        else if (leftScore > rightScore)
-        {
-            _avoidDirection = -1;
-        }
-        else
-        {
-            _avoidDirection = Random.value < 0.5f ? -1 : 1;
+            StartSideKick();
         }
 
-        _nextDecisionTime = Time.time + _decisionKeepTime;
+        return -forwardDirection * _bounceBackSpeed;
     }
 
-    private float GetOpenSideScore(int direction)
+    private Vector2 MoveSideKick(Vector2 forwardDirection)
+    {
+        _sideKickTimer += Time.fixedDeltaTime;
+
+        Vector2 rightDirection = GetRightDirection(forwardDirection);
+        Vector2 sideVector = rightDirection * _sideDirection;
+
+        bool sideBlocked = IsBlocked(sideVector, _sideCheckDistance);
+
+        if (sideBlocked == true && Time.time >= _nextSideChangeTime)
+        {
+            _sideDirection *= -1;
+            _nextSideChangeTime = Time.time + _sideChangeCooldown;
+
+            sideVector = rightDirection * _sideDirection;
+        }
+
+        Vector2 forwardVelocity = forwardDirection * (_forwardSpeed * _sideKickForwardMultiplier);
+        Vector2 sideVelocity = sideVector * _sideKickSpeed;
+
+        bool sideKickTimeEnough = _sideKickTimer >= _minSideKickTime;
+        bool frontClear = IsBlocked(forwardDirection, _frontCheckDistance) == false;
+
+        if (sideKickTimeEnough == true && frontClear == true)
+        {
+            _moveState = MoveState.Forward;
+            _sideKickTimer = 0f;
+
+            return forwardDirection * _forwardSpeed;
+        }
+
+        return forwardVelocity + sideVelocity;
+    }
+
+    private void StartBounceBack()
+    {
+        _moveState = MoveState.BounceBack;
+        _bounceTimer = _bounceBackTime;
+
+        ChooseRandomSideDirection();
+
+        _sideKickTimer = 0f;
+    }
+
+    private void StartSideKick()
+    {
+        _moveState = MoveState.SideKick;
+        _sideKickTimer = 0f;
+        _nextSideChangeTime = Time.time + _sideChangeCooldown;
+    }
+
+    private void ChooseRandomSideDirection()
     {
         Vector2 forwardDirection = _moveDirection.normalized;
-        Vector2 sideDirection = Vector2.right * direction;
+        Vector2 rightDirection = GetRightDirection(forwardDirection);
 
-        Vector2 centerPosition = _rigidBody.position;
-        Vector2 sidePosition = centerPosition + sideDirection * _sideCheckDistance;
-        Vector2 diagonalPosition = centerPosition + sideDirection * _sideCheckDistance + forwardDirection * _frontCheckDistance;
+        bool leftBlocked = IsBlocked(-rightDirection, _sideCheckDistance);
+        bool rightBlocked = IsBlocked(rightDirection, _sideCheckDistance);
 
-        float score = 0f;
-
-        bool sideBlocked = Physics2D.CircleCast(
-            centerPosition,
-            _checkRadius,
-            sideDirection,
-            _sideCheckDistance,
-            _wallLayer
-        ).collider != null;
-
-        bool diagonalBlocked = Physics2D.OverlapCircle(
-            diagonalPosition,
-            _checkRadius,
-            _wallLayer
-        ) != null;
-
-        bool forwardFromSideBlocked = Physics2D.CircleCast(
-            sidePosition,
-            _checkRadius,
-            forwardDirection,
-            _frontCheckDistance,
-            _wallLayer
-        ).collider != null;
-
-        if (sideBlocked == false)
+        if (leftBlocked == true && rightBlocked == true)
         {
-            score += 1f;
+            _sideDirection = Random.value < 0.5f ? -1 : 1;
         }
-
-        if (diagonalBlocked == false)
+        else if (leftBlocked == true)
         {
-            score += 1f;
+            _sideDirection = 1;
         }
-
-        if (forwardFromSideBlocked == false)
+        else if (rightBlocked == true)
         {
-            score += 2f;
+            _sideDirection = -1;
         }
-
-        return score;
+        else
+        {
+            _sideDirection = Random.value < 0.5f ? -1 : 1;
+        }
     }
 
-
-    // 특정 방향에 벽이 있는지 검사
     private bool IsBlocked(Vector2 direction, float distance)
     {
-        if(direction == Vector2.zero)
+        if (direction == Vector2.zero)
         {
             return false;
         }
 
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, _checkRadius, direction.normalized, distance, _wallLayer);
-        // 직선레이로 변경
-        // 한번충돌했을때 다음충돌에서 개선
-        // 에이스타패스파인딩(길찾기알고리즘)  ai네비게이션
+        RaycastHit2D hit = Physics2D.CircleCast(
+            _rigidBody.position,
+            _checkRadius,
+            direction.normalized,
+            distance,
+            _wallLayer
+        );
 
         return hit.collider != null;
-
     }
 
-   
-
-
-
-
-
+    private Vector2 GetRightDirection(Vector2 forwardDirection)
+    {
+        return new Vector2(forwardDirection.y, -forwardDirection.x);
+    }
 }
