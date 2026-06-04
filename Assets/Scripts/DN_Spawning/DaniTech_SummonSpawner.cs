@@ -8,6 +8,11 @@ public class DaniTech_SummonSpawner : MonoBehaviour
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private Transform _summonParent;
 
+
+    
+    [Header("카메라 설정")]
+    [SerializeField] private Camera _spawnCamera;
+
     [Header("생성 직후 분산 설정")]
     // true면 소환될 때 정확히 같은 위치가 아니라 살짝 랜덤하게 흩어져서 생성됨
     [SerializeField] private bool _useSpawnRandomOffset = true;
@@ -16,9 +21,6 @@ public class DaniTech_SummonSpawner : MonoBehaviour
     // 값이 클수록 처음부터 좌우로 넓게 퍼짐
     [SerializeField] private float _spawnRandomXRange = 0.25f;
 
-    // 생성될 때 위아래로 퍼지는 범위
-    // 너무 크면 시작 위치가 어색해지므로 작게 유지하는 게 좋음
-    [SerializeField] private float _spawnRandomYRange = 0.05f;
 
     [Header("탭 판정 설정")]
     [SerializeField] private float _maxTapDuration = 0.25f;
@@ -41,7 +43,7 @@ public class DaniTech_SummonSpawner : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("스페이스바로 강제 소환 시도");
-            SpawnSummon();
+            SpawnSummon(Input.mousePosition);
         }
 
         HandleMouseInput();
@@ -138,11 +140,11 @@ public class DaniTech_SummonSpawner : MonoBehaviour
             return;
         }
 
-        SpawnSummon();
+        SpawnSummon(releasePosition);
         _lastSpawnTime = Time.time;
     }
 
-    private void SpawnSummon()
+    private void SpawnSummon(Vector2 screenPosition)
     {
         if (_summonPrefab == null)
         {
@@ -156,13 +158,25 @@ public class DaniTech_SummonSpawner : MonoBehaviour
             return;
         }
 
+        if(_spawnCamera == null)
+        {
+            _spawnCamera = Camera.main;
+        }
+
+        if(_spawnCamera == null)
+        {
+            Debug.LogError("Spawn Camere가 연결 되지 않았고 Main Camera도 찾을수 없습니다");
+            return;
+        }
+
+
         // [기존]
         // _spawnPoint.position에 정확히 생성하면 모든 캐릭터가 한 줄로 겹쳐서 생성됨
         //
         // [변경]
         // _spawnPoint.position에 랜덤 오프셋을 더해서
         // 생성 직후부터 캐릭터들이 살짝 흩어진 상태로 나오게 함
-        Vector3 spawnPosition = _spawnPoint.position + GetSpawnRandomOffset();
+        Vector3 spawnPosition = GetSpawnPositionFromPointer(screenPosition);
 
         GameObject summonObject = Instantiate(
             _summonPrefab,
@@ -173,6 +187,51 @@ public class DaniTech_SummonSpawner : MonoBehaviour
 
         Debug.Log($"소환체 생성 : {summonObject.name}");
     }
+
+    private Vector3 GetSpawnPositionFromPointer(Vector2 screenPosition)
+    {
+        Debug.Log(
+            "현재 소환 스크립트 오브젝트: " + gameObject.name +
+            " / SpawnCamera: " + _spawnCamera +
+            " / SpawnPoint: " + _spawnPoint,
+            this
+        );
+
+        if (_spawnCamera == null)
+        {
+            Debug.LogError("Spawn Camera가 비어 있습니다. 이 오브젝트를 클릭해서 Inspector를 확인하세요: " + gameObject.name, this);
+            return Vector3.zero;
+        }
+
+        if (_spawnPoint == null)
+        {
+            Debug.LogError("Spawn Point가 비어 있습니다. 이 오브젝트를 클릭해서 Inspector를 확인하세요: " + gameObject.name, this);
+            return Vector3.zero;
+        }
+
+        float spawnPointDepthFromCamera =
+            Mathf.Abs(_spawnCamera.transform.position.z - _spawnPoint.position.z);
+
+        Vector3 screenPoint = new Vector3(
+            screenPosition.x,
+            screenPosition.y,
+            spawnPointDepthFromCamera
+        );
+
+        Vector3 worldPoint = _spawnCamera.ScreenToWorldPoint(screenPoint);
+
+        Vector3 randomOffset = GetSpawnRandomOffset();
+
+        Vector3 fixedYSpawnPosition = new Vector3(
+            worldPoint.x + randomOffset.x,
+            _spawnPoint.position.y,
+            _spawnPoint.position.z
+        );
+
+        return fixedYSpawnPosition;
+    }
+
+
 
     private Vector3 GetSpawnRandomOffset()
     {
@@ -185,11 +244,9 @@ public class DaniTech_SummonSpawner : MonoBehaviour
         // 좌우 랜덤 위치
         float randomX = Random.Range(-_spawnRandomXRange, _spawnRandomXRange);
 
-        // 위아래 랜덤 위치
-        // 너무 크게 하면 시작 위치가 들쭉날쭉해지므로 작게 사용
-        float randomY = Random.Range(-_spawnRandomYRange, _spawnRandomYRange);
+       
 
-        return new Vector3(randomX, randomY, 0f);
+        return new Vector3(randomX, 0f, 0f);
     }
 
     private bool IsPointerOverUI()
