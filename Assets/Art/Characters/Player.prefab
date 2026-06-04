@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8407867429174361322}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,9 +178,9 @@ MonoBehaviour:
   _frontCheckDistance: 0.45
   _sideCheckDistance: 0.3
   _checkRadius: 0.12
-  _avoidSideSpeed: 0.8
-  _blockForwardMultiplier: 0.05
-  _decisionKeepTime: 0.15
-  _stuckCheckTime: 0.4
-  _stuckMoveThreshold: 0.03
-  _stuckSideBoost: 1.4
+  _bounceBackSpeed: 0.8
+  _bounceBackTime: 0.1
+  _sideKickSpeed: 1.2
+  _sideKickForwardMultiplier: 0.12
+  _minSideKickTime: 0.2
+  _sideChangeCooldown: 0.25
