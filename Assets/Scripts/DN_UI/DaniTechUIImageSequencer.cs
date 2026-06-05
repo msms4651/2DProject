@@ -34,7 +34,10 @@ public class DaniTechUIImageSequencer : MonoBehaviour
 
     public async UniTaskVoid PlayAnimation()
     {
-        if (SpriteArray_Sprite == null || SpriteArray_Sprite.Length == 0) return;
+        try
+        {
+            if (SpriteArray_Sprite == null || SpriteArray_Sprite.Length == 0) return;
+        if (_image == null) return;
 
         // 이전 작업이 있다면 취소 후 새로 생성
         StopAnimation();
@@ -66,8 +69,13 @@ public class DaniTechUIImageSequencer : MonoBehaviour
             }
         }
     }
+    catch (OperationCanceledException)
+    {
+        // 오브젝트가 꺼질 때 애니메이션이 취소되는 건 정상 흐름이라서 무시
+    }
+}
 
-    public void StopAnimation()
+public void StopAnimation()
     {
         if (_cancelToken != null)
         {

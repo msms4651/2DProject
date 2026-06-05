@@ -6,7 +6,7 @@ public class Ms_RobbyUI : DaniTechUIBase
 {
     [SerializeField] private DaniTechUIButton Button_GameStart;
     [SerializeField] private DaniTechUIButton Button_GameQuit;
-    [SerializeField] private DaniTechUIButton Button_TestButton;
+    //[SerializeField] private DaniTechUIButton Button_TestButton;
 
 
 
@@ -14,7 +14,7 @@ public class Ms_RobbyUI : DaniTechUIBase
     {
         Button_GameStart.BindOnClickButtonEvent(OnClick_GameStart);
         Button_GameQuit.BindOnClickButtonEvent(OnClick_GameQuit);
-        Button_TestButton.BindOnClickButtonEvent(OnClick_TestButton);
+        //Button_TestButton.BindOnClickButtonEvent(OnClick_TestButton);
     }
 
 
