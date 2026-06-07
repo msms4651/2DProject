@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -4458811, guid: 89793943d68dfa04b86fd74e56fe365f, type: 3}
+  m_Sprite: {fileID: -1446464072, guid: 74c65527164f61d45b5fb1c77405bebb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,12 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaniTech_SpriteRendererSequencer
   SpriteArray_Sprite:
-  - {fileID: -4458811, guid: 89793943d68dfa04b86fd74e56fe365f, type: 3}
-  - {fileID: 279804066, guid: 89793943d68dfa04b86fd74e56fe365f, type: 3}
-  - {fileID: -168840848, guid: 89793943d68dfa04b86fd74e56fe365f, type: 3}
-  - {fileID: 410041254, guid: 89793943d68dfa04b86fd74e56fe365f, type: 3}
-  - {fileID: 1859819307, guid: 89793943d68dfa04b86fd74e56fe365f, type: 3}
-  - {fileID: -2010571295, guid: 89793943d68dfa04b86fd74e56fe365f, type: 3}
+  - {fileID: -2036773357, guid: f70d89517105f5f448c91031d15193ca, type: 3}
+  - {fileID: -265966045, guid: f70d89517105f5f448c91031d15193ca, type: 3}
   _sequenceInterval: 0.1
   _isLoop: 1
 --- !u!114 &7411822656521859159
@@ -192,3 +188,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc4721e8fc3a0a409a97a130ed6a4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DaniTech_EnemyMoveTest
+  _forwardSpeed: 1.2
+  _moveDirection: {x: 0, y: -1}
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _frontCheckDistance: 0.35
+  _sideCheckDistance: 0.3
+  _checkRadius: 0.12
+  _bounceBackSpeed: 0.8
+  _bounceBackTime: 0.1
+  _sideKickSpeed: 1.3
+  _sideKickForwardMultiplier: 0.12
+  _minSideKickTime: 0.3
+  _sideChangeCooldown: 0.25

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6487630460142085552}
   - component: {fileID: 8407867429174361322}
   - component: {fileID: 8046884929605055525}
+  - component: {fileID: 92448258802171357}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -206,3 +207,16 @@ MonoBehaviour:
   - {fileID: -2010571295, guid: 89793943d68dfa04b86fd74e56fe365f, type: 3}
   _sequenceInterval: 0.1
   _isLoop: 1
+--- !u!114 &92448258802171357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6503160098367467845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383cbad89972ebf4298680a7bbfa76c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DaniTech_UnitCollisionDestroyer
+  _targetTag: Enemy
