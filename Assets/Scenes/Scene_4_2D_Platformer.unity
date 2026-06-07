@@ -257,10 +257,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 2
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 1
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &1025403
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -355,10 +360,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 2
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 0
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &21959635
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -602,10 +612,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 2
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 1
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &60153933
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -967,10 +982,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 2
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 1
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &251951945
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1634,10 +1654,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 2
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 1
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &293167137
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2237,10 +2262,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 3
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 1
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &592987884
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3226,10 +3256,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 3
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 1
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &989429500
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4203,10 +4238,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 2
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 1
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &1169170720
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7387,10 +7427,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 2
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 1
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &1585035819
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10650,10 +10695,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Danitech_MultiplierGate
   _multiplyValue: 2
+  _canMultiplyPlayer: 1
+  _canMultiplyEnemy: 1
+  _playerTag: Player
+  _enemyTag: Enemy
   _spawnSpacingX: 0.25
-  _spawnBackOffsetY: -0.05
-  _summonParent: {fileID: 1882827793}
-  _PlayerTag: Player
+  _playerSpawnBackOffsetY: -0.05
+  _enemySpawnBackOffsetY: 0.05
+  Transform_SummonParent: {fileID: 1882827793}
+  Transform_EnemyParent: {fileID: 250872787}
 --- !u!61 &1968651429
 BoxCollider2D:
   m_ObjectHideFlags: 0
