@@ -48,17 +48,46 @@ public class DaniTech_GameBookSlotUI : MonoBehaviour
 
     public void InitSlot(string dataId, Action<string>  onClickCallback /*TableType*/)  // TODO : 카테고리에 따라 다른 데이터를 받아올수있도록 구별할 파라미터를 추가할 필요는 있다
     {
-        var itemData = DaniTechGameDataManager.Instance.GetDNItemData( dataId );
-        if (itemData == null) return;
+        var characterData = DaniTechGameDataManager.Instance.GetCharacterData( dataId );
+        if (characterData == null)
+        {
+            Debug.LogWarning($"캐릭터 데이터를 찾을 수 없습니다. DataId: {dataId}", this);
+            return;
+        }
 
-        Text_MainName.text = itemData.Name; // 이름 반영
-        
-        string iconPath = itemData.IconPath;
-        if (string.IsNullOrEmpty(iconPath) == true) return; // 혹시 기획자가 비웠을수 있으니
+        // 이 슬롯이 어떤 캐릭터 데이터인지 먼저 저장
+        _slotDataId = dataId;
 
+        // 슬롯 클릭 시 부모 UI에게 알려줄 콜백 등록
+        _onClickSlot += onClickCallback;
+
+        // 슬롯에 캐릭터 이름 표시
+        if (Text_MainName != null)
+        {
+            Text_MainName.text = characterData.Name;
+        }
+
+        string basicCostumeName = characterData.BasicCostumeName;
+
+        Debug.Log(
+            $"도감 슬롯 생성 / DataId: {dataId} / Name: {characterData.Name} / BasicCostumeName: {basicCostumeName}",
+            this
+        );
+
+        if (string.IsNullOrEmpty(basicCostumeName) == true)
+        {
+            Debug.LogWarning($"캐릭터 이미지 주소가 비어 있습니다. DataId: {dataId}", this);
+            return;
+        }
+
+        if (Image_MainIcon == null)
+        {
+            Debug.LogWarning("Image_MainIcon이 연결되지 않았습니다.", this);
+            return;
+        }
 
         // 이건 잘 만들어 둔거니까 묻지마 사용 암기... < Image에 아이콘, sprite리소스 불러와서 표기해줄
-        DaniTechGameUtil.LoadAndSetSpriteImage(Image_MainIcon, iconPath).Forget();
+        DaniTechGameUtil.LoadAndSetSpriteImage(Image_MainIcon, basicCostumeName).Forget();
 
 
 

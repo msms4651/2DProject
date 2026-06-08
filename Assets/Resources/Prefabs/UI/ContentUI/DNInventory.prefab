@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 6355997892889214099}
   Text_Base: {fileID: 3234798977243728472}
-  Image_Base: {fileID: 473921627664708855}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &2387692403198266326
 GameObject:
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 7865219634610454714}
   Text_Base: {fileID: 1299953236987524835}
-  Image_Base: {fileID: 4241025478056711007}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &3263533625209568050
 GameObject:
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DaniTechUIButton
   Button_Base: {fileID: 2500744371540169198}
   Text_Base: {fileID: 9141773923047836005}
-  Image_Base: {fileID: 6201281132408024281}
+  Image_Base: {fileID: 0}
   Image_Select: {fileID: 0}
 --- !u!1 &6154362748629385853
 GameObject:
@@ -1383,7 +1383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1391,15 +1391,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1431,11 +1431,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3987109528087846700, guid: 08788cf599d6e3541a5cae1371483ca2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

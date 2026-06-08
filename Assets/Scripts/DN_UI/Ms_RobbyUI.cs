@@ -6,15 +6,52 @@ public class Ms_RobbyUI : DaniTechUIBase
 {
     [SerializeField] private DaniTechUIButton Button_GameStart;
     [SerializeField] private DaniTechUIButton Button_GameQuit;
+    [SerializeField] private DaniTechUIButton Button_Dictionary;
     //[SerializeField] private DaniTechUIButton Button_TestButton;
 
 
 
     private void OnEnable()
     {
-        Button_GameStart.BindOnClickButtonEvent(OnClick_GameStart);
-        Button_GameQuit.BindOnClickButtonEvent(OnClick_GameQuit);
-        //Button_TestButton.BindOnClickButtonEvent(OnClick_TestButton);
+        BindButtonEvents();
+    }
+
+    private void BindButtonEvents()
+    {
+        if (Button_GameStart != null)
+        {
+            Button_GameStart.BindOnClickButtonEvent(OnClick_GameStart);
+        }
+        else
+        {
+            Debug.LogWarning("Button_GameStart가 연결되지 않았습니다", this);
+        }
+
+        if (Button_GameQuit != null)
+        {
+            Button_GameQuit.BindOnClickButtonEvent(OnClick_GameQuit);
+        }
+
+        else
+        {
+            Debug.LogWarning("Button_GameQuit가 연결되지 않았습니다", this);
+        }
+
+        if (Button_Dictionary != null)
+        {
+            Button_Dictionary.BindOnClickButtonEvent(OnClick_OpenGameBookUI);
+        }
+        else
+        {
+            Debug.LogWarning("Button_Dictionary가 연결되지 않았습니다", this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        Button_GameStart.UnBindOnClickButtonEvent(OnClick_GameStart);
+        Button_GameQuit.UnBindOnClickButtonEvent(OnClick_GameQuit);
+        Button_Dictionary.UnBindOnClickButtonEvent(OnClick_OpenGameBookUI);
     }
 
 
@@ -40,6 +77,12 @@ public class Ms_RobbyUI : DaniTechUIBase
         DaniTechGameManager.Inst.SaveAndEndGame();  
 
     }
+
+    public void OnClick_OpenGameBookUI()
+    {
+        DaniTechUIManager.Instance.OpenGameBookUI();
+    }
+
 
     public void OnClick_TestButton()
     {

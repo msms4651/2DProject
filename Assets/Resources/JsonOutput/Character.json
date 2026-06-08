@@ -1,26 +1,47 @@
 [
   {
-    "Id": "character_hellena_01",
-    "Name": "헬레나",
+    "Id": "character_Aris_01",
+    "Name": "아리스",
     "Description": "모든 마법을 사용할 수 있는 캐릭터",
     "SkillList": "skill_fireball_01,skill_normalSword_01",
     "UseWeaponId": "Weapon_Braclet_1",
-    "BasicCostumeId": "Costume_03"
+    "BasicCostumeId": "Costume_03",
+    "BasicCostumeName": "Aris_icon.png"
   },
   {
-    "Id": "character_victor_01",
-    "Name": "빅토르",
+    "Id": "character_Kei_01",
+    "Name": "케이",
     "Description": "소환 마법을 사용할 수 있는 캐릭터",
     "SkillList": "skill_normalSword_01",
     "UseWeaponId": "Weapon_Sword_1",
-    "BasicCostumeId": null
+    "BasicCostumeId": null,
+    "BasicCostumeName": "Kei_icon.png"
   },
   {
-    "Id": "character_daniel_01",
-    "Name": "다니엘",
+    "Id": "character_Momoi_01",
+    "Name": "모모이",
     "Description": "잉여로운 버프 캐릭터",
     "SkillList": "skill_rest_coffee_01",
     "UseWeaponId": "Weapon_CoffeeCup_1",
-    "BasicCostumeId": null
+    "BasicCostumeId": null,
+    "BasicCostumeName": "Midori_icon.png"
+  },
+  {
+    "Id": "character_Midori_01",
+    "Name": "미도리",
+    "Description": null,
+    "SkillList": null,
+    "UseWeaponId": null,
+    "BasicCostumeId": null,
+    "BasicCostumeName": "Momoi_icon.png"
+  },
+  {
+    "Id": "character_Yuzu_01",
+    "Name": "유즈",
+    "Description": null,
+    "SkillList": null,
+    "UseWeaponId": null,
+    "BasicCostumeId": null,
+    "BasicCostumeName": "Yuzu_icon.png"
   }
 ]

@@ -13,10 +13,12 @@ public class DaniTech_GameBookUI : DaniTechUIBase
     [SerializeField] private GameObject prefab_Slot; //게임 오브젝트이지만, 프리팹이라는 단어를 명시
 
     [Header("디테일 정보 영역")]
-    [SerializeField] private RawImage RawImage_MainIcon;
+    [SerializeField] private Image Image_MainIcon;
     [SerializeField] private Text Text_MainName;
     [SerializeField] private Text Text_Description;
     [SerializeField] private DaniTechUIButton Button_CloseUI;
+    [SerializeField] private GameObject GObj_DetailInfo;
+    [SerializeField] private DaniTechUIButton Button_CloseDetailInfoUI;
 
     //[Header("부가 정보")]
     //[SerializeField] private GameObject Layout_SubInfoSkill;  // 그 안에 있는 UI요소를 직접 하나씩 껏다 켰다 하는게 아니라,그 레이아웃의 대표 오브젝트를만 껏다 켰다 하는게 압도적으로 편함
@@ -29,19 +31,32 @@ public class DaniTech_GameBookUI : DaniTechUIBase
 
     private void OnEnable()
     {
-        // 이 UI가 열릴때 스스로, 기본적으로 아이템 도감 안에 있는 모든~~ 데이터를 불러온다
+
+        //도감이 열릴떄 상세창은 처음에 꺼짐
+        SetDetailInfoActive(false);
+
         ReadItemListAndCreateSlot();
 
-
-        Button_CloseUI.BindOnClickButtonEvent(OnClick_CloseGameBookUI);
-
-        //Button_CloseUI.
+        if (Button_CloseUI != null)
+        {
+            Button_CloseUI.BindOnClickButtonEvent(OnClick_CloseGameBookUI);
+        }
+        else
+        {
+            Debug.LogWarning("Button_CloseUI가 연결되지 않았습니다.", this);
+        }
 
     }
 
     public void OnClick_CloseGameBookUI()
     {
-        Debug.Log("도감에 닫기 버튼이 눌렸습니다!");
+        Debug.Log("DNGameBookUI 닫기 버튼 클릭됨", this);
+
+        if (DaniTechUIManager.Instance == null)
+        {
+            Debug.LogWarning("DaniTechUIManager.Instance가 없습니다", this);
+            return;
+        }
 
         DaniTechUIManager.Instance.CloseContentUI(DaniTechUIType.DNGameBookUI);
 
@@ -63,13 +78,46 @@ public class DaniTech_GameBookUI : DaniTechUIBase
         }
     }
 
+    private void SetDetailInfoActive(bool isActive)
+    {
+        if (GObj_DetailInfo == null)
+        {
+            Debug.LogWarning("GObj_DetailInfo가 연결되지 않았습니다.", this);
+            return;
+        }
+
+        GObj_DetailInfo.SetActive(isActive);
+    }
+
+    // 상세창 닫기 
+    public void OnClick_CloseDetailInfoUI()
+    {
+        Debug.Log("상세 정보 창 닫기 버튼 클릭됨", this);
+
+        SetDetailInfoActive(false);
+    }
+
+    private void BindDetailInfoButtonEvent()
+    {
+        if (Button_CloseDetailInfoUI == null)
+        {
+            Debug.LogWarning("Button_CloseDetailInfoUI가 연결되지 않았습니다.", this);
+            return;
+        }
+
+        // 혹시 같은 이벤트가 중복 등록되어 있을 수 있으니 먼저 한 번 제거
+        Button_CloseDetailInfoUI.UnBindOnClickButtonEvent(OnClick_CloseDetailInfoUI);
+
+        // 상세창이 다시 켜질 때마다 닫기 버튼 이벤트를 다시 연결
+        Button_CloseDetailInfoUI.BindOnClickButtonEvent(OnClick_CloseDetailInfoUI);
+    }
 
     private void ReadItemListAndCreateSlot()
     {
         // 데이터를 읽어와서 순회(foreach)를 돌면서, 아이템들을 도감 리스트에 표기
 
 
-        var dataList = DaniTechGameDataManager.Instance.ItemDataList;
+        var dataList = DaniTechGameDataManager.Instance.CharacterDataList;
         foreach (var dataKv in dataList)
         {
             var data = dataKv.Value;
@@ -81,15 +129,15 @@ public class DaniTech_GameBookUI : DaniTechUIBase
 
         }
 
-
-        if (_slotList.Count > 0)
-        {
-            foreach (var slotKv in _slotList)
-            {
-                var slot = slotKv.Value;
-                slot.OnClick_GameBookSlot();
-            }
-        }
+        //// 슬롯을 하나씩 눌러보는 코드
+        //if (_slotList.Count > 0)
+        //{
+        //    foreach (var slotKv in _slotList)
+        //    {
+        //        var slot = slotKv.Value;
+        //        slot.OnClick_GameBookSlot();
+        //    }
+        //}
         
             
 
@@ -126,23 +174,45 @@ public class DaniTech_GameBookUI : DaniTechUIBase
 
     public void OnclickChildSlotSelected(string slotDataId)
     {
-        var currentSelectedData = DaniTechGameDataManager.Instance.GetDNItemData(slotDataId);
-        if(currentSelectedData == null) return;
+        Debug.Log($"부모 도감 UI가 슬롯 선택을 받음 / SlotDataId: {slotDataId}", this);
+
+        var currentSelectedData = DaniTechGameDataManager.Instance.GetCharacterData(slotDataId);
+
+        if (currentSelectedData == null)
+        {
+            Debug.LogWarning($"선택한 캐릭터 데이터를 찾을 수 없습니다. DataId: {slotDataId}", this);
+            return;
+        }
+
+        SetDetailInfoActive(true);
+
+        BindDetailInfoButtonEvent();
 
         Text_MainName.text = currentSelectedData.Name;
         Text_Description.text = currentSelectedData.Description;
-        //text_SellingPrice.text = currentSelectedData.SellingPrice;
 
+        string basicCostumeName = currentSelectedData.BasicCostumeName;
 
-        DaniTechGameUtil.LoadAndSetTexture(RawImage_MainIcon, currentSelectedData.IconPath).Forget();
+        if (Image_MainIcon == null)
+        {
+            Debug.LogWarning("Image_MainIcon이 연결되지 않았습니다.", this);
+            return;
+        }
 
+        if (string.IsNullOrEmpty(basicCostumeName) == true)
+        {
+            Debug.LogWarning($"캐릭터 이미지 주소가 비어 있습니다. DataId: {slotDataId}", this);
+            return;
+        }
+
+        DaniTechGameUtil.LoadAndSetSpriteImage(Image_MainIcon, basicCostumeName).Forget();
 
         foreach (var slotKv in _slotList)
         {
             var slot = slotKv.Value;
             var dataId = slot.GetSlotDataId();
-            slot.SetSelectedUI(slotDataId == dataId);
 
+            slot.SetSelectedUI(slotDataId == dataId);
         }
 
     }
