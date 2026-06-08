@@ -18,18 +18,29 @@ public class DaniTech_UnitCollisionDestroyer : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(_isDestroyRequested == true)
+        TryDestroyByCollider(collision.collider);
+    
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        TryDestroyByCollider(other);
+    }
+
+    private void TryDestroyByCollider(Collider2D otherCollider)
+    {
+        if (_isDestroyRequested == true)
         {
             return;
         }
-        GameObject targetObject = GetTargetObject(collision.collider);
+        GameObject targetObject = GetTargetObject(otherCollider);
 
         if (targetObject == null)
         {
             return;
         }
 
-        bool isTarget = CheckTargetTag(targetObject, collision.collider);
+        bool isTarget = CheckTargetTag(targetObject, otherCollider);
 
         if (isTarget == false)
         {
