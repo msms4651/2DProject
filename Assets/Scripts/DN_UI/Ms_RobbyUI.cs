@@ -61,12 +61,26 @@ public class Ms_RobbyUI : DaniTechUIBase
     // 나중에 어떤 프리팹에서 오는건지찾기도 힘들고 관리도 힘드니까 이렇게 코드에서 등록해준다
     public void OnClick_GameStart()
     {
+
+        PlayBattleBGM();
+
         //게임 시작에 대한 처리를 여기서 몰아서 해줄수가 있게 된다.
 
         //DaniTechGameManager.Inst.게임 시작할때 맵구성이나 부가적인요소를 여기에 해도된다
 
 
         DaniTechUIManager.Instance.CloseContentUI(DaniTechUIType.DNRobbyUI);
+    }
+
+    private void PlayBattleBGM()
+    {
+        if (DaniTechSoundManager.Inst == null)
+        {
+            Debug.LogWarning("DaniTechSoundManager.Inst가 없습니다.", this);
+            return;
+        }
+
+        DaniTechSoundManager.Inst.PlayBGM("BGM_Battle");
     }
 
 

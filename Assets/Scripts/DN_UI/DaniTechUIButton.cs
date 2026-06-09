@@ -21,6 +21,7 @@ public class DaniTechUIButton : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("디버그");
         BindOnClickButtonEvent(OnClickSetSelectUI);
     }
 
@@ -59,6 +60,7 @@ public class DaniTechUIButton : MonoBehaviour
 
     public void BindOnClickButtonEvent(Action onClickCallback , bool isMenualUnbineEvent = false)
     {
+        
         if(Button_Base == null) return;
 
         Button_Base.onClick.AddListener(new UnityEngine.Events.UnityAction(onClickCallback));
@@ -82,6 +84,7 @@ public class DaniTechUIButton : MonoBehaviour
 
     private void OnClickSetSelectUI()
     {
+        Debug.Log("ㅁㄴㅇㅁㄴㅇㅁㄴ");
         if(Image_Select != null)
         {
             bool currentActive = Image_Select.gameObject.activeSelf;

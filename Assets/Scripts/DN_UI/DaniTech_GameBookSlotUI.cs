@@ -36,6 +36,7 @@ public class DaniTech_GameBookSlotUI : MonoBehaviour
 
     public void OnClick_GameBookSlot()
     {
+        Debug.Log($"도감 슬롯 클릭됨 / SlotDataId: {_slotDataId}", this);
         // 이게 오히려 중요 , 자식이 눌러졌는데 부모한테 알림
         _onClickSlot?.Invoke(_slotDataId);
     }

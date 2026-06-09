@@ -49,7 +49,22 @@ public static class DaniTechUIManagerExtension
         uiManager.OpenUI(DaniTechUIRootType.MainUI, DaniTechUIType.DNMainUI);
         // 게임 로비 UI를 여기서 오픈해주자 -> uiManager.
         // MainUI도
+
+        PlayLobbyBGM();
     }
+
+
+    private static void PlayLobbyBGM()
+    {
+        if (DaniTechSoundManager.Inst == null)
+        {
+            Debug.LogWarning("DaniTechSoundManager.Inst가 없습니다.");
+            return;
+        }
+
+        DaniTechSoundManager.Inst.PlayBGM("BGM_Lobby");
+    }
+
 
     public static void OpenSimplePopup(this DaniTechUIManager uiManager, string msg)
     {

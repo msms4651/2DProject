@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 80e8e0aaab7e37b4084b72f287df5f5d
   m_SerializeEntries:
+  - m_GUID: 009d95acb08ceca499ebcaf54e215511
+    m_Address: BGM_Lobby
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0d079c0737bf2f246b127fb22a014fa1
     m_Address: Sound/Voice_Pug_2_failed
     m_ReadOnly: 0
@@ -76,22 +81,22 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6fedefcc011f5c14b890e3969d24c73d
-    m_Address: Kei_icon
+    m_Address: Kei_icon.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 81100607983fcf141bb82172392ec2fc
-    m_Address: Aris_icon
+    m_Address: Aris_icon.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8c8a6cc41dfdc1f4daee9c14ac954310
-    m_Address: Yuzu_icon
+    m_Address: Yuzu_icon.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 93969f266fe943549b9d7f0a661ce69e
-    m_Address: Momoi_icon
+    m_Address: Momoi_icon.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -111,7 +116,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b79ff0c3118bc524a9e15420bda892e8
-    m_Address: Midori_icon
+    m_Address: Midori_icon.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -127,6 +132,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d8d61a3cf509c944a9072703554e32fb
     m_Address: Sound/Voice_Pug_1_success
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e46296fb330d35b4a85e054612c22bd0
+    m_Address: BGM_Battle
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
